@@ -1,0 +1,75 @@
+int32 CAir::air_serial_rcv(uint8 *rd_data)
+{
+    uint8 c_rcv_buf_escape[BUF_SIZE];//设置一个缓冲字符
+    int16 rcv_cnt = 0;//收到的字节数
+    int16 rcv_cnt_unescape = 0;//剩余需要转译的字符个数
+    int16 ui_loop = 0;//设置一个loop
+    int i = 0, j = 0;
+    uint8* p_rcv_buf_escape_valid = NULL;//
+    int16 rcv_cnt_valid = 0;
+    int find_flag = 0;
+   
+    while(1)
+    {
+        rcv_cnt = p_serial->Read(c_rcv_buf_escape, BUF_SIZE);
+        if ( rcv_cnt  < 0 )
+        {
+            log->log(LOG_RTU_DBG, LOG_PRI_DEBUG, "air:read error");
+            return -1;
+        }
+
+        log->log(LOG_RTU_DBG, LOG_PRI_DEBUG, "air: rcv_cnt=0x%x", rcv_cnt);
+        i = 0;
+        while (i<rcv_cnt)
+        {
+            if (c_rcv_buf_escape[i] == AIR_START)
+            {
+                j = i;
+                while (j<rcv_cnt)
+                {
+                    if (c_rcv_buf_escape[j] == AIR_END)
+                    {
+                        rcv_cnt_valid = j - i + 1;
+                        find_flag = 1;
+                        break;
+                    }
+                    else
+                        j++;
+                }
+                if (find_flag == 0)
+                {
+                    break;
+                }
+                printf_buf_hex(c_rcv_buf_escape+i, rcv_cnt_valid);
+                DbgPrintf("i=%d, j=%d, rcv_cnt_valid=%d\n", i, j, rcv_cnt_valid);
+                p_rcv_buf_escape_valid = c_rcv_buf_escape + i;
+                if (check_sum(p_rcv_buf_escape_valid, rcv_cnt_valid) == TRUE)
+                {
+                    rcv_cnt_unescape = unescape_buf(p_rcv_buf_escape_valid, rd_data, rcv_cnt_valid);
+                    printf_buf_hex(rd_data, rcv_cnt_unescape);
+                    if ( (check_rtn(rd_data, rcv_cnt_unescape) == TRUE) && (check_lth(rd_data, rcv_cnt_unescape) >= 0) )
+                    {
+                        p_serial->Del_From_Buf(j+1);
+                        printf_buf_hex(rd_data, rcv_cnt_unescape);
+                        log->log(LOG_RTU_DBG, LOG_PRI_DEBUG, "air serial rcv:check ok");
+                        return rcv_cnt_unescape;
+                    }
+                    else
+                    {
+                        log->log(LOG_RTU_DBG, LOG_PRI_DEBUG, "air serial rcv:check err");
+                        return -2;
+                    }
+                }
+               
+                else
+                {
+                    log->log(LOG_RTU_DBG, LOG_PRI_DEBUG, "air serial rcv:check sum err");
+                    return -2;
+                }
+            }
+            i++;
+        }
+
+        log->log(LOG_RTU_DBG, LOG_PRI_DEBUG, "air serial rcv:no valid frame");
+    }
+}

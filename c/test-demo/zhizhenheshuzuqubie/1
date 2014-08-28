@@ -1,0 +1,14 @@
+#include <stdio.h>
+
+int main()
+{
+		char a[]="hello";
+		a[0]='X';
+		printf("1");
+		printf("a[]= %s\n",a);
+		char *p="world";
+		printf("1");
+//		p[0]='X';
+		printf("*p=  %s",p);
+		return 0;
+}
