@@ -13,7 +13,7 @@
 #ifndef _PRODUCT_H_
 #define _PRODUCT_H_
 #include <iostream>
-#include "factory.h"
+#include "abstractfactory.h"
 using namespace std;
 
 class AbstractProductA

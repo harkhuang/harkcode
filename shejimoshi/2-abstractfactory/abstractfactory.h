@@ -14,7 +14,6 @@ protected:
 	AbstarctFactory();
 private:
 	
-	
 };
 
 class ConcreteFactory1:public AbstarctFactory
