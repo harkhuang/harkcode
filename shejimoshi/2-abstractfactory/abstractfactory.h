@@ -10,7 +10,7 @@ public:
 	virtual ~AbstarctFactory();
 	virtual AbstractProductA *MakeProductA() = 0;
 	virtual AbstractProductB *MakeProductB() = 0;
-protectd:
+protected:
 	AbstarctFactory();
 private:
 	
