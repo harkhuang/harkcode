@@ -25,5 +25,5 @@ ConcreteFactory::~ConcreteFactory()
 }
 Product * ConcreteFactory::MakeProduct()
 {
-    return new ConcreteProduct();
+    return new ConcreteProduct();//真正的实现创建在这里 
 }

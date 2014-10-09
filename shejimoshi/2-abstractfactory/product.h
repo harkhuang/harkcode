@@ -1,8 +1,8 @@
 /**
  * @file				product.h
- * @brief			工厂模式
+ * @brief				抽象工厂模式
  * @author			harkhuang
- * @date			2014年9月30日
+ * @date				2014年9月30日
  * @version			初稿
  * @par				版权所有(C), 2013-2023, 翻版必究
  * @par History:

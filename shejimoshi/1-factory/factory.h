@@ -27,7 +27,7 @@ public:
     ConcreteFactory();
 
 public:
-    Product * MakeProduct();
+    Product * MakeProduct();//返回值是一个类指针
 protected:
 private:
 };
