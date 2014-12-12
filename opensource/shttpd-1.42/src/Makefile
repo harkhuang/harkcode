@@ -1,10 +1,17 @@
+
+#定义源文件#
 SRCS=		string.c shttpd.c log.c auth.c md5.c cgi.c io_ssi.c \
 		io_file.c io_socket.c io_ssl.c io_emb.c io_dir.c io_cgi.c
+#定义头文件#
 HDRS=		defs.h llist.h shttpd.h std_includes.h io.h md5.h ssl.h \
 		compat_unix.h compat_win32.h compat_rtems.h config.h
+#定义生成规则 生成的目标文件#
 OBJS=		$(SRCS:%.c=%.o) compat_unix.c
+#生成的执行文件#
 PROG=		shttpd
+
 CL_FLAGS=	/MD /TC /nologo /DNDEBUG /Os 	# MSVC compiler flags
+
 
 # Possible flags: (in brackets are rough numbers for 'gcc -O2' on i386)
 # -DHAVE_MD5		- use system md5 library (-2kb)
@@ -28,6 +35,7 @@ CL_FLAGS=	/MD /TC /nologo /DNDEBUG /Os 	# MSVC compiler flags
 # 5. go to shttpd-VERSION\examples , type "nmake msvc"
 
 
+CC = gcc
 #CC = g++
 
 all:
@@ -45,7 +53,7 @@ lib$(PROG).a: $(OBJS) compat_unix.o
 
 unix: lib$(PROG).a
 	$(CC) $(CFLAGS) standalone.c -o $(PROG) $(LIBS) -L. -l$(PROG) -lpthread -ldl
-#$(CC) $(CFLAGS) -fpic $(SRCS) compat_unix.c -shared -o lib$(PROG).so
+	$(CC) $(CFLAGS) -fpic $(SRCS) compat_unix.c -shared -o lib$(PROG).so
 
 rtems:
 	$(CC) -c $(CFLAGS) $(SRCS) compat_rtems.c
