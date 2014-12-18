@@ -30,6 +30,8 @@
 	pthread_create(&tid, NULL, (void *(*)(void *))a, c); } while (0)
 #endif /* !NO_THREADS */
 
+//加入{}while(0) 使宏按照你预期的进行替代
+
 #define	SSL_LIB				"libssl.so"
 #define	DIRSEP				'/'
 #define	IS_DIRSEP_CHAR(c)		((c) == '/')
