@@ -1,5 +1,3 @@
 harkhuanghome
 =============
-与喃神共生死
-在天愿作比翼鸟
-在地愿做连理枝
+MaMiMaMiHo
