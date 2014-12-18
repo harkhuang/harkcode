@@ -1,3 +1,0 @@
-CFLAGS+=-pthread
-LDFLAGS+=-pthread
-

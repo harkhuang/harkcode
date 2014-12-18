@@ -1,4 +1,0 @@
-#include <errno.h>
-
-errno
-
