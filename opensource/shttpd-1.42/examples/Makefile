@@ -12,6 +12,9 @@ clean:
 unix: ../src/libshttpd.a
 	$(CC) $(CFLAGS) example.c -I ../src  ../src/libshttpd.a -o example -lpthread -ldl
 
+
+
+#下面用于windows#
 WIN32_LIBS= user32.lib shell32.lib ws2_32.lib advapi32.lib ..\src\shttpd.lib
 CL_FLAGS= /MD /DNDEBUG /nologo /Zi /I ..\src
 
