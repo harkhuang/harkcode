@@ -1,4 +1,4 @@
-git clone https://github.com/harkhuang/harkcode   //获得拷贝
+- git clone https://github.com/harkhuang/harkcode   //获得拷贝
 
 
-用svn管理我的帐号
+- 用svn管理我的帐号
