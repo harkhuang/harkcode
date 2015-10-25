@@ -1,41 +1,63 @@
-
- #/**********************************************************************
- # File Name:   moniter.py
- # Version:     1.0
- # Mail:        shiyanhk@gmail.com 
- # Created Time: 2015-10-24	
- # ************************************************************************/
-
-#! /usr/bin/env python
-#coding=utf-8
+#coding:utf-8
 import sys 
 import time 
 import poplib 
 import smtplib 
-#ÓÊ¼ş·¢ËÍº¯Êı
+from email.mime.text import MIMEText  
+from email.header import Header 
+from email.mime.multipart import MIMEMultipart  
+from email.mime.text import MIMEText  
+from email.mime.image import MIMEImage 
+import time
+
+#é‚®ä»¶å‘é€å‡½æ•°
 def send_mail(): 
      try: 
-        handle = smtplib.SMTP('smtp.126.com',25) 
-        handle.login('shiyanhk@126.com','qwe789qwe') 
-        msg = 'To: shiyanhk@qq.com\r\nFrom:shiyanhk@126.com\r\nSubject:hello\r\n'
-        handle.sendmail('shiyanhk@126.com','shiyanhk@qq.com',msg) 
+        
+        subject = 'DARE-Monitor-Test-For-Python'
+        str_from_email = 'shiyanhk@qq.com'
+        str_sendto_email = 'shiyanhk@qq.com'
+        seconds = time.time()
+        str_time  = time.ctime(seconds)
+        to_list = ['shiyanhk@qq.com','huangkui@szkingdom.com','shiyanhk@126.com']
+        mail_user = 'shiyanhk'
+        mail_postfix = 'qq.com'
+        mail_sender_name = 'DARE-Monitor'
+        me=mail_sender_name+"<"+mail_user+"@"+mail_postfix+">"
+
+        handle = smtplib.SMTP('smtp.qq.com',25) 
+        handle.login('shiyanhk@qq.com','chunqingdashazi') 
+        msg_html = MIMEText('<html><h1>ä½ å¥½</h1></html>','html','utf-8')
+        
+        #ä¸»é¢˜çš„å‘é€
+        subject = 'python email test for monitorlog'    
+        msg_html_test = MIMEText('<html><h1>DARE-Monitor</h1><body>This is a test for monitor log ...</body></html>','html','utf-8')
+        msg_html_test['Subject'] =  Header(subject,'utf-8')
+        msg_html_test['From'] = me
+        msg_html_test['To'] = ";".join(to_list)
+        msg_html_test['date']= str_time
+               
+       
+        handle.sendmail(str_from_email,str_sendto_email,msg_html_test.as_string()) 
         handle.close() 
         return 1
-     except: 
+     except Exception, e:
+        print str(e)
         return 0
-#ÓÊ¼ş½ÓÊÕº¯Êı
+#é‚®ä»¶æ¥æ”¶å‡½æ•°
 def accpet_mail(): 
     try: 
-        p=poplib.POP3('pop.126.com') 
-        p.user('shiyanhk@126.com') 
-        p.pass_('qwe789qwe') 
-        ret = p.stat() #·µ»ØÒ»¸öÔª×é:(ÓÊ¼şÊı,ÓÊ¼ş³ß´ç) 
-       #p.retr('ÓÊ¼şºÅÂë')·½·¨·µ»ØÒ»¸öÔª×é:(×´Ì¬ĞÅÏ¢,ÓÊ¼ş,ÓÊ¼ş³ß´ç)   
+        p=poplib.POP3('pop.qq.com') 
+        p.user('shiyanhk@qq.com') 
+        p.pass_('chunqingdashazi') 
+        ret = p.stat() #è¿”å›ä¸€ä¸ªå…ƒç»„:(é‚®ä»¶æ•°,é‚®ä»¶å°ºå¯¸) 
+        #p.retr('shiyanhk@qq.com')#æ–¹æ³•è¿”å›ä¸€ä¸ªå…ƒç»„:(çŠ¶æ€ä¿¡æ¯,é‚®ä»¶,é‚®ä»¶å°ºå¯¸)   
     except poplib.error_proto,e: 
         print "Login failed:",e 
         sys.exit(1)
     
-#ÔËĞĞµ±Ç°ÎÄ¼şÊ±£¬Ö´ĞĞsendmailºÍaccpet_mailº¯Êı
+#è¿è¡Œå½“å‰æ–‡ä»¶æ—¶ï¼Œæ‰§è¡Œsendmailå’Œaccpet_mailå‡½æ•°
 if __name__ == "__main__": 
     send_mail() 
-    accpet_mail()
+    print 'sendmail ok ...'
+    #accpet_mail()
