@@ -1,9 +1,8 @@
 **这是一个用来监控文件夹 并且发消息的python程序**
 
 
-###### 依赖库
 
-[https://github.com/seb-m/](http://https://github.com/seb-m/)
+[依赖库](https://github.com/seb-m/pyinotify)
 
 **安装第三方库**
 
