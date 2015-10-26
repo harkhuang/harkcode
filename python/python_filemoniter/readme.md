@@ -4,7 +4,7 @@
 
 [依赖库](https://github.com/seb-m/pyinotify)
 
-**安装第三方库**
+**1.安装第三方库**
 
 ```git clone https://github.com/seb-m/pyinotify.git```
 
@@ -12,9 +12,9 @@
 
 ```python setup.py install```
 
-**配置发信箱**
+**2.配置发信箱**
 
 
-**运行监控**
+**3.运行监控**
 
 ```python mail.py```
