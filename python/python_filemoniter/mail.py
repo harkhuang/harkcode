@@ -20,7 +20,7 @@ def send_mail(parameter_msg):
         
         subject = 'DARE-Monitor-Test-For-Python'
         str_from_email = 'shiyanhk@qq.com'
-        password = 'chunqingdashazi'
+        password = 'chunshazi'
         str_sendto_email = 'shiyanhk@qq.com'
         seconds = time.time()
         str_time  = time.ctime(seconds)
@@ -57,7 +57,7 @@ def accpet_mail():
     try: 
         p=poplib.POP3('pop.qq.com') 
         p.user('shiyanhk@qq.com') 
-        p.pass_('chunqingdashazi') 
+        p.pass_('chunshazi') 
         ret = p.stat() 
        
     except poplib.error_proto,e: 
