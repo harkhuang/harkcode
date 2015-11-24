@@ -2,88 +2,42 @@
 import os
 import sys 
 import time 
-import poplib 
-import smtplib 
- 
-from email.header import Header 
-from email.mime.text import MIMEText  
-from email.mime.image import MIMEImage 
-from email.mime.multipart import MIMEMultipart 
+from datetime import datetime
+
+import datetime
 
 from  pyinotify import  WatchManager, Notifier, \
 ProcessEvent,IN_DELETE, IN_CREATE,IN_MODIFY
  
 
-
-def send_mail(parameter_msg): 
-     try: 
-        
-        subject = 'DARE-Monitor-Test-For-Python'
-        str_from_email = 'shiyanhk@qq.com'
-        password = 'chunshazi'
-        str_sendto_email = 'shiyanhk@qq.com'
-        seconds = time.time()
-        str_time  = time.ctime(seconds)
-        to_list = ['shiyanhk@qq.com','huangkui@szkingdom.com','shiyanhk@126.com']
-        mail_user = 'shiyanhk'
-        mail_postfix = 'qq.com'
-        mail_sender_name = 'DARE-Monitor'
-        me=mail_sender_name+"<"+mail_user+"@"+mail_postfix+">"
-
-        handle = smtplib.SMTP('smtp.qq.com',25) 
-        handle.login(str_from_email,password)
-        
-        
-        if parameter_msg:
-            msg_html_test = MIMEText('<html><h2>\n         DARE-Monitor-Log</h2><body>'+'\n'+ parameter_msg+'</body><body1>'+'\n\n\n\n\n'+'from:'+str_from_email+str_time+'</body1></html>','html','utf-8')
-        else:
- 			msg_html_test = MIMEText('<html><h2>DARE-Monitor</h2><body>This is a test for monitor log ...</body></html>','html','utf-8')
-
-       
-        msg_html_test['Subject'] =  Header(subject,'utf-8')
-        msg_html_test['From'] = me
-        msg_html_test['To'] = ";".join(to_list)
-        msg_html_test['date']= str_time
-               
-       
-        handle.sendmail(str_from_email,str_sendto_email,msg_html_test.as_string()) 
-        handle.close() 
-        return 1
-     except Exception, e:
-        print str(e)
-        return 0
-
-def accpet_mail(): 
-    try: 
-        p=poplib.POP3('pop.qq.com') 
-        p.user('shiyanhk@qq.com') 
-        p.pass_('chunshazi') 
-        ret = p.stat() 
-       
-    except poplib.error_proto,e: 
-        print "Login failed:",e 
-        sys.exit(1)
-
-
+def dolog():
+  time_now = datetime.datetime.now()
+  file = open("mktdt73.txt",'r')
+  line = file.readline(1000)
+  buf = line.split("|")
+  for i in buf :
+     if '-' in i:
+	     print "time log is====>","txt_time:",i,'',"sys_time:",time_now
+	
 
 class EventHandler(ProcessEvent):
   """事件处理"""
   def process_IN_CREATE(self, event):
     msg = os.path.join(event.path,event.name)
     msg = 'create file in path:' + msg +'\n'
-    send_mail(msg)
+    #send_mail(msg)
     print   "Create file: %s "  %   os.path.join(event.path,event.name)
- 
+    dolog()
   def process_IN_DELETE(self, event):
     msg = os.path.join(event.path,event.name)
     msg = 'Delete file in path:' + msg +'\n'
-    send_mail(msg)
+    dolog()
     print   "Delete file: %s "  %   os.path.join(event.path,event.name)
 
   def process_IN_MODIFY(self, event):
     msg = os.path.join(event.path,event.name)
     msg = 'Modify file in path:' + msg +'\n'
-    send_mail(msg)
+    dolog()
     print   "Modify file: %s "  %   os.path.join(event.path,event.name)
  
 def FSMonitor(path='.'):
@@ -102,8 +56,6 @@ def FSMonitor(path='.'):
           break
 
 
-
-#邮件发送函数
-
 if __name__ == "__main__":
-  FSMonitor('/home/hk')
+  FSMonitor('/mnt/github/trunk/python/python_filemoniter')
+	

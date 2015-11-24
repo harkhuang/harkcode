@@ -1,15 +1,11 @@
 #!/usr/bin/python  
 #coding=gbk  
-
 import os
 import os.path
 import sys
 import string 
-import re
 import threading
 import time
-
-
 def kill_proc(name):#ok
     count = 0
     flag = 3
@@ -34,7 +30,7 @@ def kill_proc(name):#ok
 def  do_mount():  #ok   
     os.system("umount /hqdatabus/kmds/szkingdom/ggqq")   
    
-    os.system()
+    os.system("")
 
 def do_log(log):
         with open('./log.txt', 'a') as file:
@@ -56,8 +52,5 @@ def callback_routine(interval,name_proce):
       do_log("mount file statu is ok...")
 
 if __name__ == "__main__":
-  #callback_routine(3,"sleep123")
+  callback_routine(3,"sleep123")
   
-
-  gVal['newPostPatStr'] = unicode(gVal['newPostPatStr'], "utf-8");
-  print gVal['newPostPatStr']
