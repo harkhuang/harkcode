@@ -3,6 +3,7 @@
 1.程序分析：
 2.程序源代码：
 '''
+#code-gbk
 if __name__ == '__main__':
     from Tkinter import *
     canvas = Canvas(width = 400,height = 600,bg = 'white')
