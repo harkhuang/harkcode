@@ -1,0 +1,8 @@
+d:\documents\visual studio 2010\Projects\ConsoleApplication6\ConsoleApplication6\bin\Debug\ConsoleApplication6.exe
+d:\documents\visual studio 2010\Projects\ConsoleApplication6\ConsoleApplication6\bin\Debug\ConsoleApplication6.pdb
+d:\documents\visual studio 2010\Projects\ConsoleApplication6\ConsoleApplication6\obj\x86\Debug\ConsoleApplication6.exe
+d:\documents\visual studio 2010\Projects\ConsoleApplication6\ConsoleApplication6\obj\x86\Debug\ConsoleApplication6.pdb
+D:\Documents\Visual Studio 2010\Projects\ConsoleApplication_键盘映射\ConsoleApplication6\obj\x86\Debug\ConsoleApplication6.exe
+D:\Documents\Visual Studio 2010\Projects\ConsoleApplication_键盘映射\ConsoleApplication6\obj\x86\Debug\ConsoleApplication6.pdb
+D:\Documents\Visual Studio 2010\Projects\ConsoleApplication_键盘映射\ConsoleApplication6\bin\Debug\ConsoleApplication6.exe
+D:\Documents\Visual Studio 2010\Projects\ConsoleApplication_键盘映射\ConsoleApplication6\bin\Debug\ConsoleApplication6.pdb
