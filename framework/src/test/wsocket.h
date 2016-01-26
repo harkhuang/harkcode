@@ -53,7 +53,7 @@ public:
 
   bool Connect(char *lpszaddress , int nport, int nconnecttimeout = 15);
   bool Connect();
-  //加入多播，udp协议，客户端<1>SetAddressPort<2>Join
+ 
   //dwFlag:JL_SENDER_ONLY, JL_RECEIVER_ONLY, JL_BOTH
   #ifdef WIN32
   bool Join(DWORD   dwflag = JL_BOTH);
@@ -65,7 +65,7 @@ public:
   void Close();
 
   int SendData(char *pbuf, int nlen, int ntimeout = 20);
-  //bDataArriRet, 有收到数据立刻返回
+  //bDataArriRet, 
   int ReciveData(char *pbuf, int nlen, int ntimeout = 999999999, bool bdataarriret = false);
 
   int GetError();
@@ -99,7 +99,7 @@ public:
   {
     return IsInvalidSocket(m_hsocket);
   }
-// malin 2012.03.21 移动终端与行情平台整合后，
+// malin 2012.03.21 
 bool CheckConnectTime(char *pszAddress , int nPort, int nconnecttimeout,int &nrealconect_tickcount);
 
   int  GetStatus()   {  return  m_nsockstatus;  }
@@ -122,11 +122,11 @@ private:
 
 private:
   SOCKET m_hsocket;
-  SOCKET m_hsocketm;  //多播组
+  SOCKET m_hsocketm;  
   char m_szaddress[256];
   int m_nport;
   bool m_bwsastartup;
-  int m_nerr;  ///错误号
+  int m_nerr;   
   int m_nconnecttimeout;
 
   // proxy info

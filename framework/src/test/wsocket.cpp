@@ -353,59 +353,59 @@ int CWSocket::GetError()
 
 SOCKET CWSocket::CreateServerSocket(int nport, int nlistencount)
 {
-  InitSystemSocket();
-  SOCKET	Socket;
-  struct sockaddr_in	addrsrv;
-  INT	iRet;
-  unsigned long iReUse;
+      InitSystemSocket();
+      SOCKET	Socket;
+      struct sockaddr_in	addrsrv;
+      INT	iRet;
+      unsigned long iReUse;
 
-  Socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-  if (IsInvalidSocket(Socket))
-  {
-    return SOCKET_ERROR;
-  }
+      Socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+      if (IsInvalidSocket(Socket))
+      {
+        return SOCKET_ERROR;
+      }
 
-  memset(&addrsrv, 0, sizeof(sockaddr_in));
-  addrsrv.sin_family = AF_INET;
-  addrsrv.sin_addr.s_addr = htonl(0);
-  addrsrv.sin_port = htons(nport);
+      memset(&addrsrv, 0, sizeof(sockaddr_in));
+      addrsrv.sin_family = AF_INET;
+      addrsrv.sin_addr.s_addr = htonl(0);
+      addrsrv.sin_port = htons(nport);
 
-  iReUse = 0;
-  iRet = SetBlock(Socket,(int)iReUse);
-  if (SocketFail(iRet))
-  {
-    goto __LableError_CreateServerSocket;
-  }
+      iReUse = 0;
+      iRet = SetBlock(Socket,(int)iReUse);
+      if (SocketFail(iRet))
+      {
+        goto __LableError_CreateServerSocket;
+      }
 
-	iReUse = 1;
-  iRet = setsockopt(Socket, SOL_SOCKET, SO_REUSEADDR, (const char *) & iReUse, sizeof(int));
-  if (SocketFail(iRet))
-  {
-    goto __LableError_CreateServerSocket;
-  }
+    	iReUse = 1;
+      iRet = setsockopt(Socket, SOL_SOCKET, SO_REUSEADDR, (const char *) & iReUse, sizeof(int));
+      if (SocketFail(iRet))
+      {
+        goto __LableError_CreateServerSocket;
+      }
 
-  iRet = bind(Socket, (struct sockaddr*) & addrsrv, sizeof(sockaddr));
-  if (SocketFail(iRet))
-  {
-    goto __LableError_CreateServerSocket;
-  }
+      iRet = bind(Socket, (struct sockaddr*) & addrsrv, sizeof(sockaddr));
+      if (SocketFail(iRet))
+      {
+        goto __LableError_CreateServerSocket;
+      }
 
-  iRet = listen(Socket, nlistencount);
-  if (SocketFail(iRet))
-  {
-    goto __LableError_CreateServerSocket;
-  }
-  return Socket;
+      iRet = listen(Socket, nlistencount);
+      if (SocketFail(iRet))
+      {
+        goto __LableError_CreateServerSocket;
+      }
+      return Socket;
 
-__LableError_CreateServerSocket:
+    __LableError_CreateServerSocket:
 #ifdef _LINUX_  	
-    shutdown(Socket, SHUT_RDWR);
-    close(Socket);
+        shutdown(Socket, SHUT_RDWR);
+        close(Socket);
 #else  // _WIN32
-    shutdown(Socket, SD_BOTH);
-    closesocket(Socket);
+        shutdown(Socket, SD_BOTH);
+        closesocket(Socket);
 #endif    
-  return SOCKET_ERROR;
+      return SOCKET_ERROR;
 
 }
 
@@ -721,15 +721,7 @@ int CWSocket::ConnectByHttp(char *lpszserver, int nport, int nconnecttimeout)
 		strcat(szHttpBuff,"Content-length: 0\r\n\r\n");
 	}
 	
-/*
-	char szRetBuf[512] = {0};  memset(szRetBuf, 0, sizeof(szRetBuf));
-	char szBuf[512] = {0};  memset(szBuf, 0, sizeof(szBuf));
-	_snprintf(szBuf, 
-		      sizeof(szBuf) - 1,
-		      "CONNECT %s:%d HTTP/1.1\r\nUser-Agent: MyApp/0.1\r\n\r\n",
-		      lpszserver, 
-		      nport);
-*/
+
 	if(SendData(szHttpBuff, strlen(szHttpBuff)) <= 0)
 	{
 	   Close();
@@ -744,11 +736,7 @@ int CWSocket::ConnectByHttp(char *lpszserver, int nport, int nconnecttimeout)
 	  return -3;
 	}
 
-	//if(strstr(szBuf, "HTTP/1.0 200 OK") == NULL) //connect failed
-	//{
-	//   Close();
-	//   return -4;
-	//} 
+
 	strupr(szHttpBuff);
 	if(strstr(szHttpBuff, "HTTP") != NULL && strstr(szHttpBuff, "200") != NULL)
 	{
@@ -807,16 +795,15 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
 		rval = setsockopt(m_hsocket, SOL_SOCKET, SO_SNDBUF, (char*)&i, sizeof(i));
 	}
 
-  unsigned long ul =1;
-  int nret = 0;
-  fd_set	wdevents;
-	fd_set	rdevents;
-  struct timeval	tv;
-  int nct = 0;
-	int nret_err = -1;
-	int nret_err_len = sizeof(nret_err);
-
-  nret = SetBlock(m_hsocket,(int)ul);
+    unsigned long ul =1;
+    int nret = 0;
+    fd_set	wdevents;
+    fd_set	rdevents;
+    struct timeval	tv;
+    int nct = 0;
+    int nret_err = -1;
+    int nret_err_len = sizeof(nret_err);
+    nret = SetBlock(m_hsocket,(int)ul);
   if (SocketFail(nret))
   {
     m_nerr = WSAGetLastError();
@@ -834,7 +821,8 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
  #ifdef  _KDDEBUG_
 	char  szBuf[256] = {0};
  	_snprintf(szBuf, sizeof(szBuf) - 1, "connect fail err:%d", m_nerr);
-	OutputDebugString(szBuf);
+    printf("connect fail err:%d \n msg:%s",m_nerr,szBuf);
+    //OutputDebugString(szBuf);
  #endif
     if ((m_nerr == WSAEINPROGRESS) || (m_nerr == WSAEWOULDBLOCK) || (m_nerr == WSAEISCONN))
     {}
@@ -876,8 +864,6 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
         Close();
         return false;
       }
-
-			// 2011 lanq add wsocket recevie quit single
       if (m_bstopsocket 
      		  || (m_hquit_event !=NULL && WaitForSingleObject(m_hquit_event, 0) == WAIT_OBJECT_0) )        
       {
@@ -1028,7 +1014,7 @@ bool CWSocket::Connect()
   return (ConnectByHttp(m_szaddress , m_nport, m_nconnecttimeout) == 0 ? true : false);
  
 }
-
+//#if 1
 #if defined(WIN32) || defined(WIN64)
 //dwFlag:JL_SENDER_ONLY, JL_RECEIVER_ONLY, JL_BOTH
 bool CWSocket::Join(DWORD dwflag)
@@ -1070,21 +1056,7 @@ bool CWSocket::Join(DWORD dwflag)
 #endif  
 			goto __CWSocket_JOIN_Lab;
 		}
-/*
-		 if(dwflag != JL_SENDER_ONLY)
-		 {
-			 struct sockaddr_in  	stLocalAddr;
-			 memset((void *)&stLocalAddr, 0, sizeof(stLocalAddr));
-			 stLocalAddr.sin_family		= AF_INET;
-			 stLocalAddr.sin_port 		= htons(m_nport);
-			 stLocalAddr.sin_addr.s_addr	= htonl(INADDR_ANY);
-			 nRet = bind(m_hsocket, (struct sockaddr *)&stLocalAddr, sizeof(stLocalAddr));
-			 if(SocketFail(nRet))
-			 {
-				goto __CWSocket_JOIN_Lab;
-			 }
-		 }
-*/
+
 		nOptVal = 1;
 		nRet = setsockopt(m_hsocket, IPPROTO_IP, IP_MULTICAST_LOOP, (char *)&nOptVal, sizeof(nOptVal));
 		if(SocketFail(nRet))

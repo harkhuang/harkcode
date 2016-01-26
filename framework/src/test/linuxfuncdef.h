@@ -2,7 +2,7 @@
 #define __L_LINUXFUNCDEF_H__
 
 
-
+#ifdef _LINUX_
 #define ASSERT(expr) 
 #define _snprintf snprintf
 #define _vsnprintf vsnprintf
@@ -34,6 +34,6 @@
 #define LK_NBLCK    F_RDLCK
 #define LK_UNLCK    F_UNLCK
 #define _memicmp(s1, s2, n) strncasecmp((char *)s1, (char *)s2, (size_t)n)
-
+#endif
 
 #endif  // __L_LINUXFUNCDEF_H__
