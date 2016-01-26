@@ -16,8 +16,8 @@
 #include <sys/times.h>
 #include <sys/time.h>
 #include <unistd.h>
-#include "linuxipc/linuxatomic.h"
-#include "linuxipc/linuxsemphore.h"
+#include "linuxatomic.h"
+#include "linuxsemphore.h"
 
 typedef pthread_mutex_t CRITICAL_SECTION;
 

@@ -1,6 +1,6 @@
 
 
-#include "marc.h"
+//#include "marc.h"
 #include "wsocket.h"
 
 
@@ -12,11 +12,11 @@ using namespace std;
 
 int main()
 {   
-	char arr[100];
-	SAFESTRZERO(arr);
+	//char arr[100];
+	//SAFESTRZERO(arr);
     cout << "Hello World!" << endl;
 	
-	//CWSocket a;
+	CWSocket a;
 
 
 

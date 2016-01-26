@@ -18,7 +18,7 @@ int ReleaseSemaphore(
 
 int CloseSemaphore(void *hSemaphore);
 
-int WaitForSingleObject(void *hHandle, int dwMilliseconds);
+//int WaitForSingleObject(void *hHandle, int dwMilliseconds);
 
 int WaitForMultipleObjects(
   int nCount,             // number of handles in array

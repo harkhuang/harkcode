@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 set(PROJECT_DIR  .)
 set(PROJECT_DIR_PUBFUNC  ${PROJECT_DIR}/src)
 aux_source_directory(PROJECT_DIR_PUBFUNC  ${CMAKE_SOURCE_DIR}/src/pub_func )
-set(TEST  ${CMAKE_SOURCE_DIR}/src/test/main.cpp)
+set(TEST  ${CMAKE_SOURCE_DIR}/src/test)
 
 set(COMMPATH  ${CMAKE_SOURCE_DIR}/include)
 
@@ -27,19 +27,25 @@ ${MY_INCLUDE}/include/comm/platform/os /
 
 # Enabled by default
 
-OPTION(_LINUX_ "Option description" ON) 
+OPTION(D_LINUX_ "Option description" ON) 
+
 
 
 #然后做一个条件判断：
-IF(_LINUX_)
-    ADD_DEFINITIONS(-DMACRO)
-ENDIF(_LINUX_)
-MESSAGE(STATUS== ${_LINUX_})
+IF(D_LINUX_)
+    ADD_DEFINITIONS(-D_LINUX_)
+ENDIF(D_LINUX_)
+MESSAGE(STATUS ${D_LINUX_})
 
+#这里添加了  linux定义的宏 根据代码制定的 (半天时间)
+#add_definitions(-D_LINUX_) 
 
 set(CMAKE_BUILD_TYPE=DEBUG)
 set (CMAKE_INCLUDE_DIRECTORIES_BEFORE ON)
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+
+#生成可执行文件保存路径
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++0x -Wall -Wextra -Werror")
 #target_include_directories(/mnt/github/framework/inlcude/)
 
@@ -50,10 +56,10 @@ include_directories($(CMAKE_SOURCE_DIR)/include)
 #add_subdirectory(src)
 
  
-add_executable(frame_work  ${TEST}   /
+add_executable(frame_work  ${TEST}/main.cpp   /
 ${CMAKE_SOURCE_DIR}/src/test/wsocket.cpp )
 
-target_link_libraries(frame_work    ${LPTHREAD} )
+target_link_libraries(frame_work    ${LPTHREAD}  -lpthread)
 
 
 #some message before cmake ..
