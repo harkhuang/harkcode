@@ -72,11 +72,11 @@ CWSocket::CWSocket()
   InitSystemSocket();
 
   SetInvalidSocket(m_hsocket);
-	// 脳茅虏楼碌脴脰路虏禄鲁玫脢录禄炉脭矛鲁脡鲁脤脨貌脮录脫脙碌脷脪禄赂枚脤脳陆脫脳脰,脕陆脤矛脮脪碌陆脮芒赂枚BUG,鹿忙路露脩陆拢卢鹿忙路露!!!!
+	// 组播地址不初始化造成程序占用第一个套接字,两天找到这个BUG,规范呀，规范!!!!
   SetInvalidSocket(m_hsocketm);
   m_szaddress[0] = 0;
   m_nport = 0;
-  m_nerr = 0;  ///麓铆脦贸潞脜
+  m_nerr = 0;  ///错误号
 
   m_nconnecttimeout = 10;
   m_szproxyaddress[0] = 0;
@@ -191,13 +191,13 @@ int CWSocket::SendData(char *pbuf, int nlen, int ntimeout)
     FD_ZERO( &expevents );
     FD_SET(m_hsocket, &expevents);
     nRet = select(m_hsocket + 1, NULL, &wrevents, &expevents, ptv);
-    //select路垄脡煤麓铆脦贸
+    //select发生错误
     if (SocketFail(nRet))
     {
       m_nerr = WSAGetLastError();
       nRetCode = -2;
       goto _SOCK_SEND_ERR;
-    }//鲁卢脢卤
+    }//超时
     else if (nRet == 0)
     {
       m_nerr = WSAGetLastError();
@@ -284,8 +284,8 @@ int CWSocket::ReciveData(char *pbuf, int nlen, int ntimeout, bool bdataarriret)
       }
 
       if (m_bstopsocket 
-		  || (m_hquit_event !=NULL && WaitForSingleObject(m_hquit_event, 0) == WAIT_OBJECT_0) )     //Lanq add m_hQuitEvent脥脣鲁枚
-      {//脫娄赂脙脡猫脰脙脳麓脤卢路帽?
+		  || (m_hquit_event !=NULL && WaitForSingleObject(m_hquit_event, 0) == WAIT_OBJECT_0) )     //Lanq add m_hQuitEvent退出
+      {//应该设置状态否?
         m_nerr = -10;
 				m_nsockstatus = WSOCKET_STATUS_NORMAL;
         return m_nerr;
@@ -293,13 +293,13 @@ int CWSocket::ReciveData(char *pbuf, int nlen, int ntimeout, bool bdataarriret)
       continue;
     }
 
-    //select路垄脡煤麓铆脦贸 
+    //select发生错误 
     if (SocketFail(nRet))
     {
       m_nerr = WSAGetLastError();
       nRetCode = -2;
       goto _SOCK_RECV_ERR;
-    }//鲁卢脢卤
+    }//超时
     if (FD_ISSET(m_hsocket, &expevents))
     {
       m_nerr = WSAGetLastError();
@@ -325,7 +325,7 @@ int CWSocket::ReciveData(char *pbuf, int nlen, int ntimeout, bool bdataarriret)
       nReaded += nRet;
       nct = 0;
 	  if(bdataarriret)
-	  {//脢脮碌陆脢媒戮脻脕垄驴脤路碌禄脴
+	  {//收到数据立刻返回
 	  	break;
 	  }
     }
@@ -337,7 +337,7 @@ int CWSocket::ReciveData(char *pbuf, int nlen, int ntimeout, bool bdataarriret)
   	m_nsockstatus = WSOCKET_STATUS_SOCKERROR;
   }
   else
-  {//鲁卢脢卤
+  {//超时
   	m_nsockstatus = WSOCKET_STATUS_NORMAL;
   }
   return nRetCode;	
@@ -504,7 +504,7 @@ int CWSocket::SetProxy(int nproxytype, char *lpszproxyaddress, int nport, char *
 		}
 		else
 		{
-			//LoginTrace("陆芒脦枚脫貌脙没'%s'脢搂掳脺拢卢麓铆脦贸潞脜拢潞%d",szHostIP,WSAGetLastError());
+			//LoginTrace("解析域名'%s'失败，错误号：%d",szHostIP,WSAGetLastError());
 			return -2;
 		}
 	}
@@ -685,7 +685,7 @@ int CWSocket::ConnectByHttp(char *lpszserver, int nport, int nconnecttimeout)
 		      lpszserver, 
 		      nport,
 		      szTmp); 
-		// 脤铆录脫麓煤脌铆脩茅脰陇脢鹿脫脙碌脛脫脙禄搂脙没潞脥脙脺脗毛	
+		// 添加代理验证使用的用户名和密码	
 	if (m_szproxyusername[0] != 0)
 	{
 		char szAuth[1024] = {""};
@@ -697,21 +697,21 @@ int CWSocket::ConnectByHttp(char *lpszserver, int nport, int nconnecttimeout)
 	}
 
 	if (WSOCKET_PROXY_HTTP101 == m_nproxytype)
-	{//KC320脢卤脢鹿脫脙碌脛http1.0麓煤脌铆
+	{//KC320时使用的http1.0代理
 		strcat(szHttpBuff,"User-Agent: MyApp/0.1\r\n\r\n");	 
 	}
 	else if (WSOCKET_PROXY_HTTP102 == m_nproxytype)
-	{//脢鹿脫脙碌脛http1.0麓煤脌铆脥锚脡脝路篓
+	{//使用的http1.0代理完善法
 		strcat(szHttpBuff,"User-Agent:Mozilla/4.0 (compatible; MSIE 5.00; Windows 98)\r\n");
 		strcat(szHttpBuff,"Proxy-Connection:Keep-Alive\r\n\r\n");	
 	}		
 	else if (WSOCKET_PROXY_HTTP112 == m_nproxytype)
-	{//录貌碌楼http1.1脳枚路篓
+	{//简单http1.1做法
 		strcat(szHttpBuff,"User-Agent:Mozilla/4.0 (compatible; MSIE 5.00; Windows 98)\r\n");
 		strcat(szHttpBuff,"Proxy-Connection:Keep-Alive\r\n\r\n");	
 	}
 	else// if (WSOCKET_PROXY_HTTP111 == m_nproxytype)
-	{//TM脳枚路篓拢潞http1.1
+	{//TM做法：http1.1
 		strcat(szHttpBuff,"Accept: */*\r\n");
 		strcat(szHttpBuff,"Content-Type: text/html\r\n");
 		strcat(szHttpBuff,"Proxy-Connection: Keep-Alive\r\n");
@@ -736,12 +736,12 @@ int CWSocket::ConnectByHttp(char *lpszserver, int nport, int nconnecttimeout)
 	memset(szHttpBuff, 0, sizeof(szHttpBuff));
 	int nRet = ReciveData(szHttpBuff, sizeof(szHttpBuff) - 1, 5);
 	if (nRet != -3 && nRet <= 0)
-	{//-3鲁卢脢卤, 路碌禄脴脙禄脮芒脙麓露脿脢媒戮脻
+	{//-3超时, 返回没这么多数据
 	  Close();
 	  return -3;
 	}
 
-	//if(strstr(szBuf, "HTTP/1.0 200 OK") == NULL) //脕卢陆脫虏禄鲁脡鹿娄
+	//if(strstr(szBuf, "HTTP/1.0 200 OK") == NULL) //连接不成功
 	//{
 	//   Close();
 	//   return -4;
@@ -862,7 +862,7 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
     tv.tv_usec = 0;
     nret = select(m_hsocket + 1, 0, &wdevents, NULL, &tv);
 
-    //鲁卢脢卤
+    //超时
     if (nret == 0)
     {
       if ((m_nconnecttimeout >0 && nct >= m_nconnecttimeout) ||
@@ -885,14 +885,14 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
       continue;
     }
 
-    //select路垄脡煤麓铆脦贸
+    //select发生错误
     if (nret<0)
     {
       m_nerr = WSAGetLastError();
       Close();
       return false;
     }
-		// 虏禄脢脟驴脡脨麓卤篓麓铆
+		// 不是可写报错
     if (!FD_ISSET(m_hsocket, &wdevents))
     {
 			m_nerr = WSAGetLastError();
@@ -915,7 +915,7 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
 		tv.tv_usec = 0;
 		nret = select(m_hsocket + 1, &rdevents, &wdevents, NULL, &tv);
 
-		//鲁卢脢卤
+		//超时
 		if (nret == 0)
 		{
 			if ((m_nconnecttimeout >0 && nct >= m_nconnecttimeout) ||
@@ -937,7 +937,7 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
 			continue;
 		}
 
-		//select路垄脡煤麓铆脦贸
+		//select发生错误
 		if (nret<0)
 		{
 			m_nerr = WSAGetLastError();
@@ -945,15 +945,15 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
 			return false;
 		}
 
-		/* 5.脡猫脰脙碌脠麓媒脢卤录盲拢卢脢鹿脫脙select潞炉脢媒碌脠麓媒脮媒脭脷潞贸脤篓脕卢陆脫碌脛connect潞炉脢媒拢卢脮芒脌茂脨猫脪陋脣碌脙梅碌脛脢脟脢鹿脫脙
-		     select录脿脤媒socket脙猫脢枚路没脢脟路帽驴脡露脕禄貌脮脽驴脡脨麓拢卢脠莽鹿没脰禄驴脡脨麓拢卢脣碌脙梅脕卢陆脫鲁脡鹿娄拢卢驴脡脪脭陆酶脨脨脧脗脙忙碌脛
-		     虏脵脳梅隆拢脠莽鹿没脙猫脢枚路没录脠驴脡露脕脫脰驴脡脨麓拢卢路脰脦陋脕陆脰脰脟茅驴枚拢卢碌脷脪禄脰脰脟茅驴枚脢脟socket脕卢陆脫鲁枚脧脰麓铆脦贸拢篓虏禄脪陋
-		     脦脢脦陋脢虏脙麓拢卢脮芒脢脟脧碌脥鲁鹿忙露篓碌脛拢卢驴脡露脕驴脡脨麓脢卤潞貌脫脨驴脡脛脺脢脟connect脕卢陆脫鲁脡鹿娄潞贸脭露鲁脤脰梅禄煤露脧驴陋脕脣脕卢
-		     陆脫close(socket)拢漏拢卢碌脷露镁脰脰脟茅驴枚脢脟connect脕卢陆脫鲁脡鹿娄拢卢socket露脕禄潞鲁氓脟酶碌脙碌陆脕脣脭露鲁脤脰梅禄煤路垄脣脥
-		     碌脛脢媒戮脻隆拢脨猫脪陋脥篓鹿媒connect脕卢陆脫潞贸路碌禄脴赂酶errno碌脛脰碌脌麓陆酶脨脨脜脨露篓拢卢禄貌脮脽脥篓鹿媒碌梅脫脙 
-		     getsockopt(sockfd,SOL_SOCKET,SO_ERROR,&error,&len); 潞炉脢媒路碌禄脴脰碌脌麓脜脨露脧脢脟路帽路垄脡煤麓铆脦贸拢卢
-		     脮芒脌茂麓忙脭脷脪禄赂枚驴脡脪脝脰虏脨脭脦脢脤芒拢卢脭脷solaris脰脨路垄脡煤麓铆脦贸路碌禄脴-1拢卢碌芦脭脷脝盲脣没脧碌脥鲁脰脨驴脡脛脺路碌禄脴0.脦脪脢脳
-		     脧脠掳麓unix脥酶脗莽卤脿鲁脤碌脛脭麓脗毛陆酶脨脨脢碌脧脰隆拢脠莽脧脗拢潞*/
+		/* 5.设置等待时间，使用select函数等待正在后台连接的connect函数，这里需要说明的是使用
+		     select监听socket描述符是否可读或者可写，如果只可写，说明连接成功，可以进行下面的
+		     操作。如果描述符既可读又可写，分为两种情况，第一种情况是socket连接出现错误（不要
+		     问为什么，这是系统规定的，可读可写时候有可能是connect连接成功后远程主机断开了连
+		     接close(socket)），第二种情况是connect连接成功，socket读缓冲区得到了远程主机发送
+		     的数据。需要通过connect连接后返回给errno的值来进行判定，或者通过调用 
+		     getsockopt(sockfd,SOL_SOCKET,SO_ERROR,&error,&len); 函数返回值来判断是否发生错误，
+		     这里存在一个可移植性问题，在solaris中发生错误返回-1，但在其他系统中可能返回0.我首
+		     先按unix网络编程的源码进行实现。如下：*/
 		if (FD_ISSET(m_hsocket, &wdevents) || FD_ISSET(m_hsocket, &rdevents))
 		{
 			nret_err = -1;
@@ -1035,7 +1035,7 @@ bool CWSocket::Connect()
 }
 
 #if defined(WIN32) || defined(WIN64)
-//录脫脠毛露脿虏楼拢卢udp脨颅脪茅拢卢驴脥禄搂露脣<1>SetAddressPort<2>Join
+//加入多播，udp协议，客户端<1>SetAddressPort<2>Join
 //dwFlag:JL_SENDER_ONLY, JL_RECEIVER_ONLY, JL_BOTH
 bool CWSocket::Join(DWORD dwflag)
 {
@@ -1061,8 +1061,8 @@ bool CWSocket::Join(DWORD dwflag)
 			goto __CWSocket_JOIN_Lab;
 		}
 	
-		//socket(AF_INET,	SOCK_RAW,	IPPROTO_ICMP); 脠莽脪陋脡猫脰脙timeout,卤脴脨毛掳脩脳卯潞贸脪禄赂枚虏脦脢媒脡猫脰脙脦陋 WSA_FLAG_OVERLAPPED 
-		//WINDOW TIMEOUT脦陋DWORD拢卢 LINUX 脦陋 struct timeval 
+		//socket(AF_INET,	SOCK_RAW,	IPPROTO_ICMP); 如要设置timeout,必须把最后一个参数设置为 WSA_FLAG_OVERLAPPED 
+		//WINDOW TIMEOUT为DWORD， LINUX 为 struct timeval 
 			
 		nOptVal = 1;
 		nRet = setsockopt(m_hsocket, SOL_SOCKET, SO_REUSEADDR, (char *)&nOptVal,sizeof(nOptVal));
@@ -1227,7 +1227,7 @@ unsigned int CWSocket::GetInetAddr(char *lpszuri)
 		}
 		else
 		{
-			//LoginTrace("陆芒脦枚脫貌脙没'%s'脢搂掳脺拢卢麓铆脦贸潞脜拢潞%d",szHostIP,WSAGetLastError());
+			//LoginTrace("解析域名'%s'失败，错误号：%d",szHostIP,WSAGetLastError());
 			return 0;
 		}
 	}
@@ -1238,8 +1238,8 @@ bool CWSocket::CheckConnectTime(char *pszAddress , int nPort, int nconnecttimeou
 {
 	bool bret = false;
 	nrealconect_tickcount = -1;
-	DWORD dwbegin = 0;    // 路镁脦帽脝梅碌脛 GetTickCount() 脢卤录盲
-	DWORD dwend   = 0;    // 路镁脦帽脝梅碌脛 GetTickCount() 脢卤录盲
+	DWORD dwbegin = 0;    // 服务器的 GetTickCount() 时间
+	DWORD dwend   = 0;    // 服务器的 GetTickCount() 时间
 
 	dwbegin = GetTickCount();
 	bret = Connect(pszAddress , nPort, nconnecttimeout);
