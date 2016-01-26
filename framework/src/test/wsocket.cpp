@@ -4,6 +4,7 @@
 #include "linuxfuncdef.h"
 #include "linuxwin32api.h"
 #include <string.h>
+#include <debug.h>
 #ifdef _LINUX_
 
 #include <sys/socket.h>
@@ -12,6 +13,8 @@
 #include <unistd.h> 
 #include <sys/ioctl.h>
 #include <netdb.h>
+
+#define  _KDDEBUG_ 0
 
 #define HOSTENT hostent	
 #endif
@@ -69,28 +72,28 @@ struct This_tcp_keepalive {
 
 CWSocket::CWSocket()
 {
-  InitSystemSocket();
+    InitSystemSocket();
 
-  SetInvalidSocket(m_hsocket);
-	// 组播地址不初始化造成程序占用第一个套接字,两天找到这个BUG,规范呀，规范!!!!
-  SetInvalidSocket(m_hsocketm);
-  m_szaddress[0] = 0;
-  m_nport = 0;
-  m_nerr = 0;  ///错误号
+    SetInvalidSocket(m_hsocket);
+    //udp socket init  other erro 
+    SetInvalidSocket(m_hsocketm);
+    m_szaddress[0] = 0;
+    m_nport = 0;
+    m_nerr = 0;  //error number
 
-  m_nconnecttimeout = 10;
-  m_szproxyaddress[0] = 0;
-  m_nproxyport = 0;
-  m_szproxyusername[0] = 0;
-  m_szproxypwd[0] = 0;
-  m_nproxytype = WSOCKET_PROXY_DIRECT;
+    m_nconnecttimeout = 10;
+    m_szproxyaddress[0] = 0;
+    m_nproxyport = 0;
+    m_szproxyusername[0] = 0;
+    m_szproxypwd[0] = 0;
+    m_nproxytype = WSOCKET_PROXY_DIRECT;
 
-  m_bstopsocket = false;
-  m_hquit_event = NULL;
+    m_bstopsocket = false;
+    m_hquit_event = NULL;
 
-  m_nlivetime = 0;
-  m_ninterval = 0;
-  m_nsockstatus = WSOCKET_STATUS_INVALID;
+    m_nlivetime = 0;
+    m_ninterval = 0;
+    m_nsockstatus = WSOCKET_STATUS_INVALID;
 }
 
 CWSocket::~CWSocket()
@@ -152,7 +155,7 @@ bool CWSocket::ReConnect()//connect the server
   return Connect();
 }
 
-//send buffer data to socket
+
 int CWSocket::SendData(char *pbuf, int nlen, int ntimeout)
 {
   if (IsInvalidSocket(m_hsocket))
@@ -191,13 +194,13 @@ int CWSocket::SendData(char *pbuf, int nlen, int ntimeout)
     FD_ZERO( &expevents );
     FD_SET(m_hsocket, &expevents);
     nRet = select(m_hsocket + 1, NULL, &wrevents, &expevents, ptv);
-    //select发生错误
+    //select error
     if (SocketFail(nRet))
     {
       m_nerr = WSAGetLastError();
       nRetCode = -2;
       goto _SOCK_SEND_ERR;
-    }//超时
+    }//timeout
     else if (nRet == 0)
     {
       m_nerr = WSAGetLastError();
@@ -284,8 +287,8 @@ int CWSocket::ReciveData(char *pbuf, int nlen, int ntimeout, bool bdataarriret)
       }
 
       if (m_bstopsocket 
-		  || (m_hquit_event !=NULL && WaitForSingleObject(m_hquit_event, 0) == WAIT_OBJECT_0) )     //Lanq add m_hQuitEvent退出
-      {//应该设置状态否?
+		  || (m_hquit_event !=NULL && WaitForSingleObject(m_hquit_event, 0) == WAIT_OBJECT_0) )     //Lanq add m_hQuitEvent 
+      {//set statues ??
         m_nerr = -10;
 				m_nsockstatus = WSOCKET_STATUS_NORMAL;
         return m_nerr;
@@ -293,13 +296,13 @@ int CWSocket::ReciveData(char *pbuf, int nlen, int ntimeout, bool bdataarriret)
       continue;
     }
 
-    //select发生错误 
+    //select  error
     if (SocketFail(nRet))
     {
       m_nerr = WSAGetLastError();
       nRetCode = -2;
       goto _SOCK_RECV_ERR;
-    }//超时
+    }//timeout
     if (FD_ISSET(m_hsocket, &expevents))
     {
       m_nerr = WSAGetLastError();
@@ -325,7 +328,7 @@ int CWSocket::ReciveData(char *pbuf, int nlen, int ntimeout, bool bdataarriret)
       nReaded += nRet;
       nct = 0;
 	  if(bdataarriret)
-	  {//收到数据立刻返回
+	  {//return  if recv data
 	  	break;
 	  }
     }
@@ -337,7 +340,7 @@ int CWSocket::ReciveData(char *pbuf, int nlen, int ntimeout, bool bdataarriret)
   	m_nsockstatus = WSOCKET_STATUS_SOCKERROR;
   }
   else
-  {//超时
+  {//time out
   	m_nsockstatus = WSOCKET_STATUS_NORMAL;
   }
   return nRetCode;	
@@ -431,7 +434,7 @@ int  CWSocket::SetKeepLive(int nlivetime, int ninterval)//milliseond
 	return 0;
 }
 
-int  CWSocket::__SetKeepLive()//milliseond
+int  CWSocket::__SetKeepLive()//milliseond 
 {	
 #if defined(WIN32) || defined(WIN64)
     int nOption = 1;
@@ -504,7 +507,7 @@ int CWSocket::SetProxy(int nproxytype, char *lpszproxyaddress, int nport, char *
 		}
 		else
 		{
-			//LoginTrace("解析域名'%s'失败，错误号：%d",szHostIP,WSAGetLastError());
+			//LoginTrace("Resolve domain name failed  error numeber:%d",szHostIP,WSAGetLastError());
 			return -2;
 		}
 	}
@@ -685,7 +688,7 @@ int CWSocket::ConnectByHttp(char *lpszserver, int nport, int nconnecttimeout)
 		      lpszserver, 
 		      nport,
 		      szTmp); 
-		// 添加代理验证使用的用户名和密码	
+		// add agent pasword and id
 	if (m_szproxyusername[0] != 0)
 	{
 		char szAuth[1024] = {""};
@@ -697,21 +700,21 @@ int CWSocket::ConnectByHttp(char *lpszserver, int nport, int nconnecttimeout)
 	}
 
 	if (WSOCKET_PROXY_HTTP101 == m_nproxytype)
-	{//KC320时使用的http1.0代理
+	{// 
 		strcat(szHttpBuff,"User-Agent: MyApp/0.1\r\n\r\n");	 
 	}
 	else if (WSOCKET_PROXY_HTTP102 == m_nproxytype)
-	{//使用的http1.0代理完善法
+	{// 
 		strcat(szHttpBuff,"User-Agent:Mozilla/4.0 (compatible; MSIE 5.00; Windows 98)\r\n");
 		strcat(szHttpBuff,"Proxy-Connection:Keep-Alive\r\n\r\n");	
 	}		
 	else if (WSOCKET_PROXY_HTTP112 == m_nproxytype)
-	{//简单http1.1做法
+	{// 
 		strcat(szHttpBuff,"User-Agent:Mozilla/4.0 (compatible; MSIE 5.00; Windows 98)\r\n");
 		strcat(szHttpBuff,"Proxy-Connection:Keep-Alive\r\n\r\n");	
 	}
 	else// if (WSOCKET_PROXY_HTTP111 == m_nproxytype)
-	{//TM做法：http1.1
+	{// 
 		strcat(szHttpBuff,"Accept: */*\r\n");
 		strcat(szHttpBuff,"Content-Type: text/html\r\n");
 		strcat(szHttpBuff,"Proxy-Connection: Keep-Alive\r\n");
@@ -736,12 +739,12 @@ int CWSocket::ConnectByHttp(char *lpszserver, int nport, int nconnecttimeout)
 	memset(szHttpBuff, 0, sizeof(szHttpBuff));
 	int nRet = ReciveData(szHttpBuff, sizeof(szHttpBuff) - 1, 5);
 	if (nRet != -3 && nRet <= 0)
-	{//-3超时, 返回没这么多数据
+	{//too much data back
 	  Close();
 	  return -3;
 	}
 
-	//if(strstr(szBuf, "HTTP/1.0 200 OK") == NULL) //连接不成功
+	//if(strstr(szBuf, "HTTP/1.0 200 OK") == NULL) //connect failed
 	//{
 	//   Close();
 	//   return -4;
@@ -862,7 +865,7 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
     tv.tv_usec = 0;
     nret = select(m_hsocket + 1, 0, &wdevents, NULL, &tv);
 
-    //超时
+    //time out
     if (nret == 0)
     {
       if ((m_nconnecttimeout >0 && nct >= m_nconnecttimeout) ||
@@ -885,14 +888,14 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
       continue;
     }
 
-    //select发生错误
+    //select error
     if (nret<0)
     {
       m_nerr = WSAGetLastError();
       Close();
       return false;
     }
-		// 不是可写报错
+		// purview  decline
     if (!FD_ISSET(m_hsocket, &wdevents))
     {
 			m_nerr = WSAGetLastError();
@@ -915,7 +918,7 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
 		tv.tv_usec = 0;
 		nret = select(m_hsocket + 1, &rdevents, &wdevents, NULL, &tv);
 
-		//超时
+		//time out
 		if (nret == 0)
 		{
 			if ((m_nconnecttimeout >0 && nct >= m_nconnecttimeout) ||
@@ -937,7 +940,7 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
 			continue;
 		}
 
-		//select发生错误
+		//select error
 		if (nret<0)
 		{
 			m_nerr = WSAGetLastError();
@@ -945,15 +948,7 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
 			return false;
 		}
 
-		/* 5.设置等待时间，使用select函数等待正在后台连接的connect函数，这里需要说明的是使用
-		     select监听socket描述符是否可读或者可写，如果只可写，说明连接成功，可以进行下面的
-		     操作。如果描述符既可读又可写，分为两种情况，第一种情况是socket连接出现错误（不要
-		     问为什么，这是系统规定的，可读可写时候有可能是connect连接成功后远程主机断开了连
-		     接close(socket)），第二种情况是connect连接成功，socket读缓冲区得到了远程主机发送
-		     的数据。需要通过connect连接后返回给errno的值来进行判定，或者通过调用 
-		     getsockopt(sockfd,SOL_SOCKET,SO_ERROR,&error,&len); 函数返回值来判断是否发生错误，
-		     这里存在一个可移植性问题，在solaris中发生错误返回-1，但在其他系统中可能返回0.我首
-		     先按unix网络编程的源码进行实现。如下：*/
+		/**/
 		if (FD_ISSET(m_hsocket, &wdevents) || FD_ISSET(m_hsocket, &rdevents))
 		{
 			nret_err = -1;
@@ -1035,7 +1030,6 @@ bool CWSocket::Connect()
 }
 
 #if defined(WIN32) || defined(WIN64)
-//加入多播，udp协议，客户端<1>SetAddressPort<2>Join
 //dwFlag:JL_SENDER_ONLY, JL_RECEIVER_ONLY, JL_BOTH
 bool CWSocket::Join(DWORD dwflag)
 {
@@ -1061,8 +1055,9 @@ bool CWSocket::Join(DWORD dwflag)
 			goto __CWSocket_JOIN_Lab;
 		}
 	
-		//socket(AF_INET,	SOCK_RAW,	IPPROTO_ICMP); 如要设置timeout,必须把最后一个参数设置为 WSA_FLAG_OVERLAPPED 
-		//WINDOW TIMEOUT为DWORD， LINUX 为 struct timeval 
+		//socket(AF_INET,	SOCK_RAW,	IPPROTO_ICMP); 
+		//if  timeout  is needed  ,set "IPPROTO_ICMP=WSA_FLAG_OVERLAPPED"
+		 
 			
 		nOptVal = 1;
 		nRet = setsockopt(m_hsocket, SOL_SOCKET, SO_REUSEADDR, (char *)&nOptVal,sizeof(nOptVal));
@@ -1227,7 +1222,7 @@ unsigned int CWSocket::GetInetAddr(char *lpszuri)
 		}
 		else
 		{
-			//LoginTrace("解析域名'%s'失败，错误号：%d",szHostIP,WSAGetLastError());
+			//LoginTrace(failed to analyze domain  name number is :%d",szHostIP,WSAGetLastError());
 			return 0;
 		}
 	}
@@ -1238,8 +1233,8 @@ bool CWSocket::CheckConnectTime(char *pszAddress , int nPort, int nconnecttimeou
 {
 	bool bret = false;
 	nrealconect_tickcount = -1;
-	DWORD dwbegin = 0;    // 服务器的 GetTickCount() 时间
-	DWORD dwend   = 0;    // 服务器的 GetTickCount() 时间
+	DWORD dwbegin = 0;    //server GetTickCount() time 
+	DWORD dwend   = 0;    //server GetTickCount() time 
 
 	dwbegin = GetTickCount();
 	bret = Connect(pszAddress , nPort, nconnecttimeout);
