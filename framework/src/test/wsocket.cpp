@@ -821,7 +821,6 @@ bool CWSocket::__Connect(char *lpszserver , int nport, int nconnecttimeout)
  #ifdef  _KDDEBUG_
 	char  szBuf[256] = {0};
  	_snprintf(szBuf, sizeof(szBuf) - 1, "connect fail err:%d", m_nerr);
-    printf("connect fail err:%d \n msg:%s",m_nerr,szBuf);
     //OutputDebugString(szBuf);
  #endif
     if ((m_nerr == WSAEINPROGRESS) || (m_nerr == WSAEWOULDBLOCK) || (m_nerr == WSAEISCONN))

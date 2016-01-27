@@ -4,33 +4,74 @@
 #include <debug.h>
 #include <iostream>
 
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <netdb.h>
 
 using namespace std;
 
+#define SERVERPORT "1988"
 
 int main()
 {   
     char arr[100] = {"the message is from wsocket ..."};
-    cout << "=========================" << endl;
+
+#if 0
+    cout << "===========test connect  Raw sockets client ==============" << endl;
 	CWSocket a;
+    char address[100] = {"127.0.0.1"};
+    int sd;
+    struct sockaddr_in raddr;
+   // sockaddr_in raddr;
+    sd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sd<0) {
+        perror("socket()");
+        exit(1);
+    }
+    else{
+        cout<<"connect success"<<endl;
+    }
+    raddr.sin_family = AF_INET;
+    raddr.sin_port = htons(atoi(SERVERPORT));
+    inet_pton(AF_INET, address, &raddr.sin_addr);
+    if (connect(sd, (const sockaddr*)&raddr, sizeof(raddr))<0) {
+        perror("connect()");
+        exit(1);
+    }
+    else
+    cout << "=========end connect socket================" << endl;
+#endif
 
 #if  1
     char lpszaddress[100] = {"127.0.0.1"};
     int nport = 1988;
     int nconnecttimeout = 100;
+    CWSocket a;
     if (a.Connect(lpszaddress,  nport,  nconnecttimeout))
     {
           cout << "connect success" << endl;
-    };
+    }
+    else
+    {
+         cout << "connect failed" << endl;
+    }
   //  a.SetAddressPort(lpszaddress,  nport,  nconnecttimeout);
 #endif
 
+
+
+
+#if 0
     int n, m;
     m = a.CreateServerSocket(1988);
     n = a.SendData(arr,100);
     a.GetError();
     cout << "CreateServerSocket return value is:" << m <<endl;
     cout << "SendData return value is:"<< n <<endl;
+#endif
     return 0;
 }
 
