@@ -19,7 +19,7 @@ int main()
 {   
     char arr[100] = {"the message is from wsocket ..."};
 
-#if 0
+#if  1
     cout << "===========test connect  Raw sockets client ==============" << endl;
 	CWSocket a;
     char address[100] = {"127.0.0.1"};
@@ -49,8 +49,14 @@ int main()
     char lpszaddress[100] = {"127.0.0.1"};
     int nport = 1988;
     int nconnecttimeout = 100;
-    CWSocket a;
-    if (a.Connect(lpszaddress,  nport,  nconnecttimeout))
+    CWSocket csocket;
+
+   // TODO: add factory pattern
+   // CWSocket* csocket = new CWSocket();
+   // csocket->CreateProductB();
+
+
+    if (csocket.Connect(lpszaddress,  nport,  nconnecttimeout))
     {
           cout << "connect success" << endl;
     }
@@ -64,13 +70,27 @@ int main()
 
 
 
-#if 0
-    int n, m;
-    m = a.CreateServerSocket(1988);
-    n = a.SendData(arr,100);
-    a.GetError();
-    cout << "CreateServerSocket return value is:" << m <<endl;
-    cout << "SendData return value is:"<< n <<endl;
+#if 1
+
+     cout <<"=========test send buffer to server================"<<endl;
+    int n = -1;
+
+
+    // if success  return the send buff length.
+    n = csocket.SendData(arr,100);
+
+    cout << n   <<endl;
+    if (n> 0)
+    {
+          cout << "SendData success"  <<endl;
+    }
+    else
+    {
+         cout << "SendData error"  <<endl;
+    }
+      //  cout << "SendData return value is:"<< n <<endl;
+    cout <<"=========end test send buffer to server================"<<endl;
+
 #endif
     return 0;
 }
