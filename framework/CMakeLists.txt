@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 set(PROJECT_DIR  .)
 set(PROJECT_DIR_PUBFUNC  ${PROJECT_DIR}/src)
 aux_source_directory(PROJECT_DIR_PUBFUNC  ${CMAKE_SOURCE_DIR}/src/pub_func )
-set(TEST  ${CMAKE_SOURCE_DIR}/src/test)
+set(TEST_DIR  ${CMAKE_SOURCE_DIR}/src/test)
 set(COMMPATH  ${CMAKE_SOURCE_DIR}/include)
 
 
@@ -17,7 +17,7 @@ set (PROJECT_SOURCE_DIR=/mnt/github/trunk/framework/src)
 set(MY_INCLUDE /mnt/github/trunk/framework/inlcude)
 include_directories( . / 
 ${MY_INCLUDE} /
-${MY_INCLUDE}/src/test /
+${MY_INCLUDE}/src/TEST_DIR /
 ${MY_INCLUDE}/include/comm /
 ${MY_INCLUDE}/include/comm/lcomm /
 ${MY_INCLUDE}/include/comm/platform /
@@ -57,8 +57,13 @@ include_directories($(CMAKE_SOURCE_DIR)/include)
 
 #add_subdirectory(src)
  
-add_executable(frame_work  ${TEST}/main.cpp /
+add_executable(frame_work  ${TEST_DIR}/main.cpp /
 ${CMAKE_SOURCE_DIR}/src/test/wsocket.cpp )
+
+
+set(SOCKET_DIR    /mnt/github/trunk/framework/src/socket_client )
+include_directories( ${CMAKE_SOURCE_DIR})
+add_executable(client_socketd  ${SOCKET_DIR}/client.c)
 
 target_link_libraries(frame_work ${LPTHREAD}  -lpthread)
 
