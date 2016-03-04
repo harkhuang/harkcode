@@ -17,6 +17,8 @@ set shortmess=atI " 启动的时候不显示那个援助乌干达儿童的提示
 "set go= " 不要图形按钮
 set nu
 
+
+
 colo evening
 set guifont=Courier_New:h10:cANSI " 设置字体 
 syntax on " 语法高亮 
@@ -184,6 +186,11 @@ func! Rungdb()
      set autowrite
      set ruler " 打开状态栏标尺
      "set cursorline " 突出显示当前行
+	color desert
+	set cursorline
+	hi CursorLine term=bold cterm=bold guibg=Grey40
+	 
+	 
      set magic " 设置魔术
      set guioptions-=T " 隐藏工具栏
      set guioptions-=m " 隐藏菜单栏
