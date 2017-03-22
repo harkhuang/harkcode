@@ -14,6 +14,8 @@ main()
 
 	while (time(NULL)<end) {
 		count++;
+		printf ("%d\n", count);
+
 	}
 
 	printf("%lld\n", count);

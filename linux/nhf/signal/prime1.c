@@ -27,7 +27,7 @@ main()
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 
-	sigaction(SIGCHLD, &sa, NULL);
+	singaction(SIGCHLD, &sa, NULL);
 
 	for (i=LEFT;i<=RIGHT;++i) {
 		pid = fork();
