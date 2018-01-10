@@ -1,0 +1,125 @@
+http://ajava.org网站整理
+http://ask.ajava.org有奖问答论坛
+
+书名：Design Patterns(源码)
+格式：*
+作者：Jerry Shen
+
+此目录里包括了<Design Patterns>一书中所有23种设计模式的实现（Java 版）源码 
+
+
+关于代码的几点说明： 
+1. 代码为根据个人对Design Pattern的学习理解写出（>90%原创）， 
+   难免有错误的地方，希望大家指出。
+
+2. 每个Pattern均是一个目录，其目录名即是Pattern的名字, 所有代码用JDeveloper 9i 和JBuilder 6.0编写，并编译、运行通过。 
+
+3. 示例中的类，方法的命名规则和各个对象间的协作，基本同原书， 所以可以在看书的同时加以参照。  
+
+4. 为图方便，绝大多数示例的效果是用printf表现之。 虽然不能体现Pattern的威力，效果也不够直观，但希望依然能体现
+    Pattern的骨架，比如一个Pattern的类是如何组织的，各个对象间的协作又是怎样。 
+5. 所有代码是对Pattern做了相当的简化，有许多深层次的考虑希望大家一起挖掘。 
+6. 鉴于本人水平和时间也较紧张，代码写的比较烂，设计中考虑不周，效率不高 ，甚至错误的地方还请大家指出。
+
+
+目录
+Adapter
+  .......\Adapter.jpr
+  .......\classes
+  .......\.......\Adapter.cdi
+  .......\.......\connections.xml
+  .......\.......\Shape.class
+  .......\.......\Text.class
+  .......\.......\TextShapeClass.class
+  .......\.......\TextShapeObject.class
+  .......\src
+  .......\...\Shape.java
+  .......\...\Text.java
+  .......\...\TextShapeClass.java
+  .......\...\TextShapeObject.java
+  Bridge
+  ......\Bridge.jpr
+  ......\classes
+  ......\.......\Bridge.cdi
+  ......\.......\connections.xml
+  ......\.......\Test.class
+  ......\.......\Text.class
+  ......\.......\TextBold.class
+  ......\.......\TextImp.class
+  ......\.......\TextImpLinux.class
+  ......\.......\TextImpMac.class
+  ......\.......\TextItalic.class
+  ......\src
+  ......\...\Test.java
+  ......\...\Text.java
+  ......\...\TextBold.java
+  ......\...\TextImp.java
+  ......\...\TextImpLinux.java
+  ......\...\TextImpMac.java
+  ......\...\TextItalic.java
+  Builder
+  .......\Builder.jpr
+  .......\classes
+  .......\.......\Builder.cdi
+  .......\.......\ConcreteHouseBuilderA.class
+  .......\.......\connections.xml
+  .......\.......\House.class
+  .......\.......\HouseBuilder.class
+  .......\.......\HouseDirector.class
+  .......\.......\TestClient.class
+  .......\src
+  .......\...\ConcreteHouseBuilderA.java
+  .......\...\House.java
+  .......\...\HouseBuilder.java
+  .......\...\HouseDirector.java
+  .......\...\TestClient.java
+  ChainOfResponsibility
+  .....................\ChainOfResponsibility.jpr
+  .....................\classes
+  .....................\.......\Chain.class
+  .....................\.......\ChainOfResponsibility.cdi
+  .....................\.......\connections.xml
+  .....................\.......\Manager.class
+  .....................\.......\Others.class
+  .....................\.......\Programmer.class
+  .....................\.......\ProjectManager.class
+  .....................\.......\QA.class
+  .....................\.......\Test.class
+  .....................\src
+  .....................\...\Chain.java
+  .....................\...\Manager.java
+  .....................\...\Others.java
+  .....................\...\Programmer.java
+  .....................\...\ProjectManager.java
+  .....................\...\QA.java
+  .....................\...\Test.java
+  Command
+  .......\classes
+  .......\.......\Command.cdi
+  .......\.......\Command.class
+  .......\.......\connections.xml
+  .......\.......\Fan.class
+  .......\.......\FanOffCommand.class
+  .......\.......\FanOnCommand.class
+  .......\.......\Light.class
+  .......\.......\LightOffCommand.class
+  .......\.......\LightOnCommand.class
+  .......\.......\Switch.class
+  .......\.......\TestCommand.class
+  .......\Command.java
+  .......\Command.jpr
+  .......\TestCommand.java
+  Composite
+  .........\classes
+  .........\.......\Composite.cdi
+  .........\.......\connections.xml
+  .........\.......\Employee.class
+  .........\.......\empTree.class
+  .........\.......\JxFrame$1.class
+  .........\.......\JxFrame.class
+  .........\Composite.jpr
+  .........\src
+  .........\...\Employee.java
+  .........\...\empTree.java
+  .........\...\JxFrame.java
+  Decorator
