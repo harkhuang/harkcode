@@ -10,7 +10,14 @@ class jiji
 		}
 		public static void main(String[] args)
 		{
-			jiji object_ji =new jiji(); 
-			object_ji.eat();
+			int intAry[ ] = new int [10];
+			intAry[4] = 10;
+			for £¨i = 0; i < 10; i++£©
+			{
+				Scanner sc = new Scanner(System.in); 
+
+				intAry[i]= sc;
+			}
+			System.out.println(s);
 		}
 }
