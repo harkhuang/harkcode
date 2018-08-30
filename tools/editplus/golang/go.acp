@@ -1,0 +1,51 @@
+#TITLE=go 
+; EditPlus Auto-completion file v1.0 written by pallas0328. 
+
+
+#CASE=y 
+
+#T=if 
+if ^! { 
+
+} 
+#T=else 
+else { 
+^! 
+} 
+#T=for 
+for ^! { 
+
+} 
+#T=switch 
+switch ^! { 
+
+} 
+#T=case 
+case ^!: 
+#T=func 
+func ^! { 
+
+} 
+#T=import 
+import ( 
+"^!" 
+) 
+#T=struct 
+struct { 
+^! 
+} 
+#T=interface 
+interface { 
+^! 
+} 
+#T=Printf 
+Printf("^!"); 
+#T=Println 
+Println("^!"); 
+#T=Print 
+Print("^!"); 
+#T=make 
+make(^!,); 
+#T=new 
+new(^!); 
+# 
