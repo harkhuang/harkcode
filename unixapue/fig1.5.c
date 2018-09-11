@@ -1,20 +1,14 @@
 #include "apue.h"
 
-#define	BUFFSIZE	4096
-
-int
-main(void)
+int main()
 {
-	int		n;
-	char	buf[BUFFSIZE];
-    // 循环读取文件中内容   返回的是n个字符串
-    
-	while ((n = read(STDIN_FILENO, buf, BUFFSIZE)) > 0)
-		if (write(STDOUT_FILENO, buf, n) != n)
-			err_sys("write error");
+	int c;
 
-	if (n < 0)
-		err_sys("read error");
-
-	exit(0);
+	while(  (c = getc(stdin) ) != EOF){
+		if(putc(c, stdout) == EOF)
+			err_sys("output error");
+	}
+	if(ferror(stdin))
+		err_sys("input error");
+	exit(0);// return normal
 }

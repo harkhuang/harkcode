@@ -16,6 +16,7 @@
         "type_traits": "c",
         "utility": "c",
         "iosfwd": "c",
-        "__locale": "c"
+        "__locale": "c",
+        "istream": "c"
     }
 }
