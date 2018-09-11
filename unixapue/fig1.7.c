@@ -1,32 +1,20 @@
 #include "apue.h"
-#include <sys/wait.h>
+
+#define	BUFFSIZE	4096
 
 int
 main(void)
 {
-	char buf[MAXLINE];
-	int status;
-	pid_t pid;
+	int		n;
+	char	buf[BUFFSIZE];
+    // 循环读取文件中内容   返回的是n个字符串
+    
+	while ((n = read(STDIN_FILENO, buf, BUFFSIZE)) > 0)
+		if (write(STDOUT_FILENO, buf, n) != n)
+			err_sys("write error");
 
-	printf("%% ");
-	while(fgets(buf,MAXLINE,stdin ) != NULL ){
-		// set buffer end
-		if(buf[strlen(buf) - 1] == '\n')
-			buf[strlen(buf) -1] = 0;
-		
-		// make process
-		if((pid = fork() < 0)){
-			err_sys("fork erro");
-		} else if (pid == 0 ){ //chilid
-			execlp(buf,buf,(char *) 0);
-			err_ret("could't execute:%s",buf);
-			exit(127);
-		}
+	if (n < 0)
+		err_sys("read error");
 
-		//   pa pa process
-		if((pid = waitpid(pid, &status, 0)) < 0)
-			err_sys("waitpid error");
-		printf("%%");
-	}
 	exit(0);
 }
