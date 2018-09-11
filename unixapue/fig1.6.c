@@ -9,5 +9,5 @@
 	printf("getppid() = %d \n",getppid());
 	// 获取当前进程id
 	printf("getpid() = %d \n",getpid());
-	exit(0);
+	exit(1);
  }

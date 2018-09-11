@@ -18,5 +18,6 @@
         "iosfwd": "c",
         "__locale": "c",
         "istream": "c"
-    }
+    },
+    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools"
 }
