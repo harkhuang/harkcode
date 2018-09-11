@@ -1,0 +1,21 @@
+{
+    "files.associations": {
+        "apue.h": "c",
+        "errno.h": "c",
+        "dirent.h": "c",
+        "__functional_base": "c",
+        "__functional_base_03": "c",
+        "__tree": "c",
+        "__tuple": "c",
+        "chrono": "c",
+        "functional": "c",
+        "limits": "c",
+        "memory": "c",
+        "ratio": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "iosfwd": "c",
+        "__locale": "c"
+    }
+}

@@ -1,4 +1,4 @@
-#include "./apue.h"
+#include "../include/apue.h"
 
 int		glob = 6;		/* external variable in initialized data */
 char	buf[] = "a write to stdout\n";
@@ -26,7 +26,7 @@ main(void)
 #if 1 
 	else 
 	{
-		sleep(2);				/* parent */ //  当且仅当pid执行晚一步的时候才会得到想要的输出结果  不然IO混乱输出
+		sleep(2);				/* parent */   当且仅当pid执行晚一步的时候才会得到想要的输出结果  不然IO混乱输出
 		//exit(0);
 	}
 #endif
