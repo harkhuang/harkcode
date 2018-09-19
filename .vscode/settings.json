@@ -18,7 +18,13 @@
         "iosfwd": "c",
         "__locale": "c",
         "istream": "c",
-        "iostream": "c"
+        "iostream": "c",
+        "iterator": "cpp",
+        "vector": "cpp",
+        "__split_buffer": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "string": "cpp"
     },
     "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
     "C_Cpp.configurationWarnings": "Disabled"

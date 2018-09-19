@@ -58,8 +58,8 @@ class X
 public:
 
 // 在类里面 构造虚函数模版  太难了  因为构造虚函数表is hard
-    template <typename T>
-    virtual void func2(const T& p)
+    template <typename T1>
+    virtual void func2(const T1& p)
     {
         cout<<"C:"<<p<<endl;
     }
