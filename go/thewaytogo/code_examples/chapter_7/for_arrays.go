@@ -14,3 +14,7 @@ func main() {
 		fmt.Printf("Array at index %d is %d\n", i, arr1[i])
 	}
 }
+
+
+
+
