@@ -1,5 +1,4 @@
 package main
-
 import (
 	"errors"
 	"net/rpc"
@@ -41,9 +40,7 @@ func main(){
 	if e != nil {
 		log.Fatal("listen error:", e)
 	}
-	for ; ;  {
-		go http.Serve(l, nil)
-	}
+	go http.Serve(l, nil)
 	
-	time.Sleep(1e9) 
+	time.Sleep(1e30) 
 }
