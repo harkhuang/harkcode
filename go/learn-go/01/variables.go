@@ -10,6 +10,3 @@ func main() {
 	fmt.Println(i, c, python, java)
 	fmt.Println(a, b, B)
 }
-
-
-//https://tour.go-zh.org/basics/9
