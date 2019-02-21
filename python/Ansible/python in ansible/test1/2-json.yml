@@ -1,0 +1,19 @@
+---
+- name: Sync Power Schedules From Database to Survey Spec
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    choices_key: ".spec[6].choices"
+    choices_value: "23:00-02:00\n02:00-04:00\n04:00-06:00\n00:00-04:00"
+    json_file: "{{playbook_dir}}/s.json"
+
+  tasks:
+
+  - name: "modify json"
+    command: >
+      jq "{{choices_key}}=\"{{choices_value}}\"" "{{json_file}}"
+    register: json
+
+  - debug:
+      var: json.stdout

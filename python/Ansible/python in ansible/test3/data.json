@@ -1,0 +1,49 @@
+{
+  "version": {
+    "P01": [
+      {
+        "min_version": "v1",
+        "name": "P201901-v1",
+        "detail":[{"aa":1,"bb":2}]
+      },
+      {
+        "min_version": "v2",
+        "name": "P201901-v2"
+      },
+      {
+        "min_version": "v3",
+        "name": "P201901-v3"
+      }
+    ],
+    "P02": [
+      {
+        "min_version": "v1",
+        "name": "P201902-v1"
+      },
+      {
+        "min_version": "v2",
+        "name": "P201902-v2"
+      },
+      {
+        "min_version": "v3",
+        "name": "P201902-v3"
+       
+      }
+    ],
+    "P03": [
+      {
+        "min_version": "v1",
+        "name": "P201903-v1"
+      },
+      {
+        "min_version": "v2",
+        "name": "P201903-v2"
+      },
+      {
+        "min_version": "v3",
+        "name": "P201903-v3"
+       
+      }
+    ]
+  }
+}
