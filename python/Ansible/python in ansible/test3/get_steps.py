@@ -12,11 +12,8 @@ for (k,v) in data["version"].items():
    pprint(k + '\n')
 
 # get the deploy steps
-
 versions_deps.sort()
-#versions_deps.append("P99")
-#versions_deps.append("P77")
-#versions_deps.append("P88")
+
 for i in versions_deps:
    pprint(i)
 
@@ -45,7 +42,6 @@ main_index_to = versions_deps.index(main_version_to)
 
 print(main_index_from)
 
-
 main_steps = []
 #main_steps = [ versions_deps[int(main_index_from)] for i in versions_deps ]
 #pprint(main_steps)
@@ -66,13 +62,34 @@ else:
    pprint(main_steps.reverse)
 # get min index
 
+
+
 # from P0101 to P0202
 
 # get version form 
 
-
-
-
-
-
 #pprint(versions_deps.index("0"))
+a = []
+b = [1,"P201901","P201902"]
+
+a.append(b)
+a.append(b)
+a.append(b)
+pprint(a)
+
+
+
+
+from_v = "P2019-01-01"
+to_v = "P2019-02-02"
+steps = []
+### 1:update   0:degrade 
+### test1 from P2019-01-01 to P2019-02-02
+# P2019-01-01  degrade P2019-01-00
+from_v[-1] = '0'
+pprint(from_v)
+steps.append()
+
+
+
+### test2 from P2019-02-03 to P2019-01-02

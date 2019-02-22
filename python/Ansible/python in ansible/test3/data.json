@@ -1,47 +1,47 @@
 {
   "version": {
-    "P01": [
+    "P2019-01-00": [
       {
-        "min_version": "v1",
-        "name": "P201901-v1",
+        "min_version": "01",
+        "name": "P2019-01-01",
         "detail":[{"aa":1,"bb":2}]
       },
       {
         "min_version": "v2",
-        "name": "P201901-v2"
+        "name": "P2019-01-02"
       },
       {
         "min_version": "v3",
-        "name": "P201901-v3"
+        "name": "P2019-01-03"
       }
     ],
-    "P02": [
+    "P2019-02-00": [
       {
         "min_version": "v1",
-        "name": "P201902-v1"
+        "name": "P201902-02-01"
       },
       {
         "min_version": "v2",
-        "name": "P201902-v2"
+        "name": "P201902-02-02"
       },
       {
         "min_version": "v3",
-        "name": "P201902-v3"
+        "name": "P201902-02-03"
        
       }
     ],
-    "P03": [
+    "P2019-03-00": [
       {
         "min_version": "v1",
-        "name": "P201903-v1"
+        "name": "P2019-03-01"
       },
       {
         "min_version": "v2",
-        "name": "P201903-v2"
+        "name": "P2019-03-02"
       },
       {
         "min_version": "v3",
-        "name": "P201903-v3"
+        "name": "P2019-03-03"
        
       }
     ]
