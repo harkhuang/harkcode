@@ -10,8 +10,8 @@ for (k,v) in data["version"].items():
    versions_deps.append(k)
    pprint(k + '\n')
 
-from_v = "P2019-01-02"
-to_v = "P2019-04-03"
+from_v = "P2019-06-02"
+to_v   = "P2019-05-03"
 steps = list()
 
 #step1 degrade to base line version
@@ -41,24 +41,32 @@ temp = []
 f = min(int_step3, int_step2)
 t = max(int_step2, int_step3)
 
+
+num = 0
 for i in range(f, t):
    step_f = []
    step_t = []
    temp = []
+   pos = 0
    if (int_step2 < int_step3):
       temp.append("1")  # 1:up
    else:
       temp.append("0")  # 0:down
-   if i < 9:  # 
+   if i < 9 and int_step2 < int_step2:   
      step_f = from_v[0:7]  + str(i) + "-00"
-     print step_f        
-   else :
+     step_t = to_v[0:7] + str(i+1) + "-00"
+   elif i > 9 and int_step2 < int_step2: 
      step_f = from_v[0:6]  +  str(i) + "-00"
-     print step_f
-   if i+1 < 9:
-      step_t = to_v[0:7] + str(i+1) + "-00"
-   else:
-      step_t = to_v[0:6] + str(i+1) + "-00"
+     step_t = to_v[0:6] + str( i+1) + "-00"
+
+   if i < 9 and int_step2 > int_step3:
+     step_f = from_v[0:7]  + str(int_step2 - num) + "-00"
+     step_t = to_v[0:7] + str(int_step2 - num - 1) + "-00"
+     num = num +1
+   elif i > 9 and int_step2 > int_step2: 
+     step_f = from_v[0:6]  +  str(int_step2 - num) + "-00"
+     step_t = to_v[0:6] + str(int_step2 - num -1) + "-00"
+
    temp.append(step_f)
    temp.append(step_t)
    steps.append(temp)
@@ -75,6 +83,9 @@ print temp
 
 
 print "from :" + from_v + " to " + to_v
-print steps
+#print steps
 for i in steps:
-   pprint(i)
+    pprint(i)
+
+for i in steps:
+    pprint(i[1])
