@@ -3,9 +3,10 @@
 class Animal(object):
     def __init__(self, name):
         self.name = name
+        self.infos = ["student","20","chinese"]
     def talk(self):
         print(self.name,'ao~~~~')
-    def animal_talk(ojbk):
+    def animal_talk(ojbk):   
         ojbk.talk()
  
 class Cat(Animal):
@@ -20,4 +21,3 @@ class Dog(Animal):
  
 a = Dog('a')
 Animal.animal_talk(a) 
- 
