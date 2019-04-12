@@ -1,0 +1,13 @@
+---
+- name: Sync Power Schedules From Database to Survey Spec
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+
+
+  - name: update config values
+    json_mod:
+      path: "json.json"
+      refresh_token: "AJDJKS839238AJKSJDKAD"
+      password: "superSecurePassword"
