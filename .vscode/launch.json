@@ -4,6 +4,24 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        {
+            "name": "(Windows) Launch",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/a.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true
+        },
+        {
+            "name": "(Windows) Attach",
+            "type": "cppvsdbg",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
+
         
         {
             "name": "Launch file",
@@ -16,7 +34,7 @@
             "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/Users/hk/Documents/github/harkcode/unixapue/a.out",
+            "program": "/Users/hk/Documents/github/harkcode/cpp/c++11-qianbo/a.out",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
