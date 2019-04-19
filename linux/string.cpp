@@ -70,17 +70,17 @@ void mystrrev(char *a,int length)/*实现strrev()函数*/
  	}
  	printf("%s",pa);
  }
-	void mystrncat(char *pa,char *pb,int len)/*实现strncat()函数*/
+void mystrncat(char *pa,char *pb,int len)/*实现strncat()函数*/
+{
+	while(*pa!='\0')
 	{
-		while(*pa!='\0')
-		{
-			pa++;
-		}
-		for(int i=0;i<len;i++)
-		{
-			*pa=*pb;
-			pa++;
-			pb++;
-		}
-		printf("%s",pa);
+		pa++;
 	}
+	for(int i=0;i<len;i++)
+	{
+		*pa=*pb;
+		pa++;
+		pb++;
+	}
+	printf("%s",pa);
+}

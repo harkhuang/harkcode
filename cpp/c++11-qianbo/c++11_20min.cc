@@ -19,8 +19,6 @@ v.push_back(2);
 v.push_back(4);
 v.push_back(5);
 
-
-
 // C++ 11 extended the support 
 vector<int> v = {3, 4, 1, 9};   // Calling initializer_list constructor
 
@@ -40,7 +38,7 @@ class BoVector {
 };
 
 BoVector v = {0, 2, 3, 4};
-BoVector v{0, 2, 3, 4};   // effectively the same
+BoVector v1{0, 2, 3, 4};   // effectively the same
 
 
 // Automatic normal Initialization
@@ -197,7 +195,7 @@ void foo(int i) { cout << "foo_int" << endl; }
 void foo(char* pc) { cout << "foo_char*" << endl; }
 
 int main() {
-   foo(NULL);    // Ambiguity
+   foo(NULL);    // Ambiguity  多重语义
 
    // C++ 11
    foo(nullptr); // call foo(char*)
