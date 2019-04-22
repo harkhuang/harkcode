@@ -1,5 +1,6 @@
 import json
 import array
+
 from pprint import pprint
 # get the version depend trees
 versions_deps = []
@@ -8,8 +9,10 @@ with open('data.json') as f:
 for (k,v) in data["version"].items():
    versions_deps.append(k)
    #pprint(k + '\n')
-from_v = "P2019-06-02"
-to_v   = "P2019-05-03"
+
+
+from_v = "P2019-04-01"
+to_v   = "P2019-05-01"
 steps = list()
 
 #step1 degrade to base line version
@@ -75,9 +78,8 @@ temp.append(to_v)
 steps.append(temp)
 
 #print temp
-
-
 print "from :" + from_v + " to " + to_v
 #print steps
 for i in steps:
     pprint(i)
+
