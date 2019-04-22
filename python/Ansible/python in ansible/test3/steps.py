@@ -25,16 +25,16 @@ steps.append(temp)
 # step2 up or down main version
 ### get the main version number
 step2 = from_v[6:8] 
-#pprint(step2)
+
 if step2[0] == "0":
    step2 = step2[1]
-#pprint (step2)
+
 int_step2 = int(step2)
 step3 = to_v[6:8] 
-#pprint(step3)
+
 if step3[0] == "0":
    step3 = step3[1]
-#pprint (step3)
+
 int_step3 = int(step3)
 temp = []
 f = min(int_step3, int_step2)
@@ -60,7 +60,7 @@ for i in range(f, t):
    if i < 9 and int_step2 > int_step3:
      step_f = from_v[0:7]  + str(int_step2 - num) + "-00"
      step_t = to_v[0:7] + str(int_step2 - num - 1) + "-00"
-     num = num +1
+     num = num + 1
    elif i > 9 and int_step2 > int_step2: 
      step_f = from_v[0:6]  +  str(int_step2 - num) + "-00"
      step_t = to_v[0:6] + str(int_step2 - num -1) + "-00"
