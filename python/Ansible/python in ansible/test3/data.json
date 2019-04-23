@@ -1,63 +1,61 @@
 {
-  "testkey2":[{"xxx":2},{"xx":1},{"xx":2}],
-  "testkey":{"key1":1,"key2":2},
-  "base":["a","x",2],
+  "test_date":["a","x",2],
+  "deploy_from_version":"2019-01-01",
+  "deploy_to_version":"2019-03-02",
   "version": {
     "P2019-01-00": [
       {
         "min_version": "01",
-        "name": "P2019-01-05",
-        "detail":[{"aa":1,"bb":2}]
+        "name": "P2019-01-01",
+        "detail":[{"nextversion":"","preversion":"2019-01-00"}]
       },
       {
         "min_version": "v2",
         "name": "P2019-01-02",
-        "detail":[{"aa":1,"bb":2}]
+        "detail":[{"nextversion":"","preversion":"2019-01-00"}]
       },
       {
         "min_version": "v3",
         "name": "P2019-01-03",
-        "detail":[{"aa":1,"bb":2}]
+        "detail":[{"nextversion":"","preversion":"2019-01-00"}]
       }
     ],
     "P2019-02-00": [
       {
         "min_version": "v1",
-        "name": "P201902-02-01",
-        "detail":[{"aa":1,"bb":2}]
+        "name": "P2019-02-01",
+        "detail":[{"nextversion":"","preversion":"2019-01-02"}]
       },
       {
         "min_version": "v2",
-        "name": "P201902-02-02",
-        "detail":[{"aa":1,"bb":2}]
+        "name": "P2019-02-02",
+        "detail":[{"nextversion":"","preversion":"2019-01-02"}]
       },
       {
         "min_version": "v3",
-        "name": "P201902-02-03",
-        "detail":[{"aa":1,"bb":2}]
+        "name": "P2019-02-03",
+        "detail":[{"nextversion":"","preversion":"2019-01-02"}]
        
       }
     ],
     "P2019-03-00": [
       {
         "min_version": "v1",
-        "name": "P2019-03-01"
+        "name": "P2019-03-01",
+        "detail":[{"nextversion":"","preversion":"2019-03-00"}]
       },
       {
         "min_version": "v2",
-        "name": "P2019-03-02"
+        "name": "P2019-03-02",
+        "detail":[{"nextversion":"","preversion":"P2019-03-01"}]
       },
       {
         "min_version": "v3",
-        "name": "P2019-03-03"
+        "name": "P2019-03-03",
+        "detail":[{"nextversion":"","preversion":"2019-03-02"}]
        
       }
-    ]
+    ],
+    "P2019-04-00": []
   }
-,
-  "cars": [
-    { "name":"Ford", "models":[ "Fiesta", "Focus", "Mustang" ] },
-    { "name":"BMW", "models":[ "320", "X3", "X5" ] },
-    { "name":"Fiat", "models":[ "500", "Panda" ] }
-  ]
 }
