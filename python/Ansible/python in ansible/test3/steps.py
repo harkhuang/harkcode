@@ -6,9 +6,20 @@ from pprint import pprint
 versions_deps = []
 with open('data.json') as f:
     data = json.load(f)
+
+from_version = data["deploy_from_version"]
+to_version = data["deploy_to_version"]
+version_line = []
+
 for (k,v) in data["version"].items():
    versions_deps.append(k)
-   #pprint(k + '\n')
+   #if k == from_version:
+   print "|-" + k 
+   for i in v:
+     print  "|--" + i["name"]
+print versions_deps
+
+
 
 
 from_v = "P2019-04-01"
