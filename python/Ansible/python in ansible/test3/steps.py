@@ -1,96 +1,106 @@
 import json
 import array
-
 from pprint import pprint
 # get the version depend trees
 versions_deps = []
 with open('data.json') as f:
     data = json.load(f)
-
 from_version = data["deploy_from_version"]
 to_version = data["deploy_to_version"]
 version_line = []
+pre_version = []
+print ("from=>" + from_version)
+print ("to=>" + to_version)
+
+Line_steps = list()
+temp = []
+temp1 = []
+### 如果存在空指针的情况 请对应处理
+###
+
+print ("== 第一步找到回退版本===============================")
 
 for (k,v) in data["version"].items():
-   versions_deps.append(k)
-   #if k == from_version:
-   print "|-" + k 
-   for i in v:
-     print  "|--" + i["name"]
-print versions_deps
+    for i in v:
+      if (i["name"] == from_version):
+         temp.append("0")
+         temp.append(i["name"])
+         temp.append(i["detail"]["preversion"])
+         Line_steps.append(temp)
+         pre_version = i["detail"]["preversion"]
+print (Line_steps)
 
 
 
+## 根据依赖树（json）升级/回退主要版本号
+temp2 = []
+flag = "-1" 
+print ("== 第二步找到回退版本===============================")
+for (k,v) in data["version"].items():
+    pre_version = k
+    if (from_version[0:8] > to_version[0:8]):      
+      if( from_version[0:8] >= k[0:8]  >= to_version[0:8]):
+         print("down->"  + k)
+         #temp2.append("0")       
+         flag = "0" 
+         temp2.append(k)  
+    if (from_version[0:8] < to_version[0:8]):
+      if(from_version[0:8] <= k[0:8]  <= to_version[0:8]):
+        print("up->"  + k)
+        #temp2.append("0") 
+        flag = "1"
+        temp2.append(k) 
+    if (from_version == to_version):
+      pre = []     
+      print ("do nothing")
 
-from_v = "P2019-04-01"
-to_v   = "P2019-05-01"
-steps = list()
+print ("==test in temp2 ===============================")
 
-#step1 degrade to base line version
-step1 = from_v[0:-2] + "00"
-temp = []
-temp.append("0") # 0:degrade
-temp.append(from_v)
-temp.append(step1)
-steps.append(temp)
-# step2 up or down main version
-### get the main version number
-step2 = from_v[6:8] 
+if flag == "0":
+   for i in range(len(temp2) , 0):
+      print (i)
+      
+if flag == "1":
+   for i in range( 0 , len(temp2) ):
+      print (i) 
+      # temp = []      
+      # temp.append(flag  )
+      # temp.append(pre_version)
+      # temp.append(i)
+      # print(temp)
+      # Line_steps.append(temp)
+print  (Line_steps)
+print ("==end temp2 ===============================")   
+# if flag != "-1":
+#   for i in temp2: 
+#     print (i)
+#     if(i == "0"):     
+#       temp = []      
+#       temp.append(flag  )
+#       temp.append(pre_version)
+#       temp.append(i)
+#       print(temp)
+#       Line_steps.append(temp)
+#     elif(i == "1"):
+#       temp = []      
+#       temp.append(flag  )
+#       temp.append(pre_version)
+#       temp.append(i)
+#       print(temp)
+#       Line_steps.append(temp)
+#     pre_version = i
 
-if step2[0] == "0":
-   step2 = step2[1]
-
-int_step2 = int(step2)
-step3 = to_v[6:8] 
-
-if step3[0] == "0":
-   step3 = step3[1]
-
-int_step3 = int(step3)
-temp = []
-f = min(int_step3, int_step2)
-t = max(int_step2, int_step3)
-
-num = 0
-for i in range(f, t):
-   step_f = []
-   step_t = []
-   temp = []
-   pos = 0
-   if (int_step2 < int_step3):
-      temp.append("1")  # 1:up
-   else:
-      temp.append("0")  # 0:down
-   if i < 9 and int_step2 < int_step2:   
-     step_f = from_v[0:7]  + str(i) + "-00"
-     step_t = to_v[0:7] + str(i+1) + "-00"
-   elif i > 9 and int_step2 < int_step2: 
-     step_f = from_v[0:6]  +  str(i) + "-00"
-     step_t = to_v[0:6] + str( i+1) + "-00"
-
-   if i < 9 and int_step2 > int_step3:
-     step_f = from_v[0:7]  + str(int_step2 - num) + "-00"
-     step_t = to_v[0:7] + str(int_step2 - num - 1) + "-00"
-     num = num + 1
-   elif i > 9 and int_step2 > int_step2: 
-     step_f = from_v[0:6]  +  str(int_step2 - num) + "-00"
-     step_t = to_v[0:6] + str(int_step2 - num -1) + "-00"
-
-   temp.append(step_f)
-   temp.append(step_t)
-   steps.append(temp)
-
-
-# step3 update min version
-temp = []
-temp.append("1")
-temp.append(to_v[0:9] + "00")
-temp.append(to_v)
-steps.append(temp)
-
-#print temp
-print "from :" + from_v + " to " + to_v
-#print steps
-for i in steps:
-    pprint(i)
-
+temp3 = []
+print ("== 第三步找到回退版本===============================")
+for (k,v) in data["version"].items():
+    for i in v:
+      if (i["name"] == to_version):
+         print ("up->" + pre_version + " to "+to_version)
+         temp = []
+         temp.append("1") 
+         temp.append(pre_version)
+         temp.append(to_version)
+         Line_steps.append(temp)
+print ("==test===============================")
+print (Line_steps)
+print ("=========================================")
