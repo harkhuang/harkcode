@@ -1,0 +1,66 @@
+{
+  "test_date":["a","x",2],
+  "deploy_from_version":"P2019-01-01",
+  "deploy_to_version":"P2019-03-01",
+  "version": {
+    "P2019-01-00": [
+      {
+        "min_version": "01",
+        "name": "P2019-01-01",
+        "detail":{"nextversion":"","preversion":"P2019-01-00"}
+      },
+      {
+        "min_version": "v2",
+        "name": "P2019-01-02",
+        "detail":{"nextversion":"","preversion":"P2019-01-00"}
+      },
+      {
+        "min_version": "v3",
+        "name": "P2019-01-03",
+        "detail":{"nextversion":"","preversion":"P2019-01-00"}
+      }
+    ],
+    "P2019-02-00": [
+      {
+        "min_version": "v1",
+        "name": "P2019-02-01",
+        "detail":{"nextversion":"","preversion":"P2019-02-00"}
+      },
+      {
+        "min_version": "v2",
+        "name": "P2019-02-02",
+        "detail":{"nextversion":"","preversion":"P2019-02-00"}
+      },
+      {
+        "min_version": "v3",
+        "name": "P2019-02-03",
+        "detail":{"nextversion":"","preversion":"P2019-02-00"}
+       
+      }
+    ],
+    "P2019-03-00": [
+      {
+        "min_version": "v1",
+        "name": "P2019-03-01",
+        "detail":{"nextversion":"","preversion":"P2019-03-00"}
+      },
+      {
+        "min_version": "v2",
+        "name": "P2019-03-02",
+        "detail":{"nextversion":"","preversion":"P2019-03-00"}
+      },
+      {
+        "min_version": "v3",
+        "name": "P2019-03-03",
+        "detail":{"nextversion":"","preversion":"P2019-03-00"}
+       
+      }
+    ],
+    "P2019-04-00": [
+      {"name":"P2019-04-01",
+      "min_version": "v3",     
+      "detail":{"nextversion":"","preversion":"P2019-04-00"}
+     
+    }]
+  }
+}

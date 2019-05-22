@@ -1,0 +1,25 @@
+import json
+
+from pprint import pprint
+
+## 获取操作信息  可以从日志文件中获取 
+## P+批次号+批次内小版本号
+version_to = P0202
+version_from = P0101 
+
+## 从版本信息文件中获取版本库信息
+versions_deps = []
+with open('data.json') as f:
+    data = json.load(f)
+
+for (k,v) in data:
+   versions_deps.append(k)
+   pprint(k + '\n')
+
+
+
+## 从目录校验版本信息  TODO:
+
+
+
+

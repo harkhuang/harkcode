@@ -1,0 +1,70 @@
+- name: Sync Power Schedules From Database to Survey Spec
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    new_choices: {}
+
+  tasks:
+    - name: 
+      ping: ~
+
+    - name: Set shared directory name
+      set_fact: 
+        sharedDataPath: .
+
+    - name: Set shared file path name
+      set_fact: 
+        sharedDataPathFile: "{{sharedDataPath}}/s.json"
+
+    - name: Create directory to share data
+      file:
+        path: "{{ sharedDataPath }}"
+        state: directory
+
+#    - name: Load Survey Spec to file
+#      shell: 'tower-cli job_template survey 70 > "{{ sharedDataPathFile }}"'
+
+    - name:
+      set_fact:
+        surveySpec: "{{ lookup('file', sharedDataPathFile) | from_json }}"
+
+
+
+
+    - name: Make sure the survey spec file exists
+      stat:
+        path: "{{ sharedDataPathFile }}"
+      register: isFileExists
+
+    - name: Fail if file is not there
+      fail:
+        msg: "Cannot find survey spec exported file"
+      when: isFileExists == False
+
+    - name: Read exception file to a variable
+      command: cat "{{ sharedDataPathFile }}"
+      register: surveySpec
+      when: isFileExists.stat.exists == True
+
+
+    - name: Setting key
+      set_fact:
+        choices_key: "choices"
+
+    - name: Setting new values
+      set_fact:
+        choices_value: "23:00-02:00\n02:00-04:00\n04:00-06:00\n00:00-04:00"
+
+    - name: Create dictionary
+      set_fact:
+        new_choices: "{{ new_choices | combine({choices_key: choices_value}) }}"
+
+    - json_modify:
+        data: "{{ surveySpec }}"
+        pointer: "/spec/5"
+        action: update
+        update: "{{ new_choices }}"
+
+    - debug:
+        var: result.result

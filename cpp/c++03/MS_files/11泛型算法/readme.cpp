@@ -1,0 +1,1 @@
+﻿istream_iterator<int >  inIter(cin), eof;

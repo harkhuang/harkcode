@@ -1,0 +1,89 @@
+{
+  "spec": [
+    {
+      "question_description": "", 
+      "min": 0, 
+      "default": "Test text", 
+      "max": 4096, 
+      "required": true, 
+      "choices": "", 
+      "variable": "_t", 
+      "question_name": "Note", 
+      "type": "textarea"
+    }, 
+    {
+      "required": true, 
+      "min": null, 
+      "default": "", 
+      "max": null, 
+      "question_description": "appliance id", 
+      "choices": "Unconfigured\n600,qvmProcessor/applianceexemptions,all", 
+      "new_question": true, 
+      "variable": "appid", 
+      "question_name": "Appliance ID", 
+      "type": "multiplechoice"
+    }, 
+    {
+      "required": true, 
+      "min": null, 
+      "default": "", 
+      "max": null, 
+      "question_description": "Select version", 
+      "choices": "1.2.3\n1.2.4\n1.2.5", 
+      "new_question": true, 
+      "variable": "version", 
+      "question_name": "App Version", 
+      "type": "multiplechoice"
+    }, 
+    {
+      "required": true, 
+      "min": 0, 
+      "default": "", 
+      "max": 1024, 
+      "question_description": "", 
+      "choices": "", 
+      "new_question": true, 
+      "variable": "newVMIP", 
+      "question_name": "IP for new VM", 
+      "type": "text"
+    }, 
+    {
+      "required": true, 
+      "min": 0, 
+      "default": "", 
+      "max": 1024, 
+      "question_description": "", 
+      "choices": "", 
+      "new_question": true, 
+      "variable": "requesterEmail", 
+      "question_name": "Requester's email", 
+      "type": "text"
+    }, 
+    {
+      "required": true, 
+      "min": null, 
+      "default": "", 
+      "max": null, 
+      "question_description": "Select the timeframe for automatic VM shutdown. ***NOTE*** EST Time is in 24 hour format", 
+      "choices": "23:00-02:00\n02:00-04:00\n04:00-06:00\n00:00-02:00", 
+      "new_question": true, 
+      "variable": "powerOFF_TimeFrame", 
+      "question_name": "Power OFF window", 
+      "type": "multiplechoice"
+    }, 
+    {
+      "required": true, 
+      "min": 0, 
+      "default": 5, 
+      "max": 30, 
+      "question_description": "The VM will be deleted after # of days specified (default=5).", 
+      "choices": "", 
+      "new_question": true, 
+      "variable": "vmNumReservedDays", 
+      "question_name": "Keep VM for # of days", 
+      "type": "integer"
+    }
+  ], 
+  "description": "", 
+  "name": ""
+}

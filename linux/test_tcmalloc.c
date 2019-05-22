@@ -36,31 +36,15 @@ void* fun_thread()
          }
 
 }
-
-
-
 #define MSECOND 1000000
 
 int main()
 
 {
-
-
-
          struct timeval tpstart,tpend;
-
          float timeuse;
-
-        
-
          gettimeofday(&tpstart,NULL);
-
-
-
          pthread_t _deliver_t;
-
-
-
          pthread_create(&_deliver_t, NULL, fun_thread, NULL);
 
          int i = 0;
