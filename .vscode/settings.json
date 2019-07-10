@@ -76,7 +76,8 @@
         "optional": "cpp",
         "set": "cpp",
         "typeindex": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "regex": "cpp"
     },
     "C_Cpp.configurationWarnings": "Disabled",
     "debug.allowBreakpointsEverywhere": true,
