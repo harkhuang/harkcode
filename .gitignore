@@ -6,8 +6,7 @@ unixapue/a.out
 build
 ipch
 *.exe
-<<<<<<< HEAD
 cpp/boost-asio/build
-=======
+ 
 *.proto
->>>>>>> 44e3522da0de08e44a9e8a701aa5ccbc865092bd
+ 
