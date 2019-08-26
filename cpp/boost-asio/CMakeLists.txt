@@ -4,6 +4,8 @@ project(testasio)
 
 
 
+set(CMAKE_CXX_STANDARD 11)
+
 
 set(BOOST_ROOT /usr/local)
 
@@ -16,6 +18,8 @@ if(Boost_FOUND)
     MESSAGE( STATUS "Boost_LIBRARIES = ${Boost_LIBRARIES}.")
     MESSAGE( STATUS "Boost_LIB_VERSION = ${Boost_LIB_VERSION}.")
 
-    add_executable(testasio 0-server.cpp)
-    target_link_libraries (testasio ${Boost_LIBRARIES})
+    add_executable(asio-test 0-server.cpp)
+
+    target_link_libraries (asio-test ${Boost_LIBRARIES}   pthread)
+
 endif()
