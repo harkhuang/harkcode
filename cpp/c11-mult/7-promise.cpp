@@ -4,7 +4,7 @@
 
 
 
-//➜  c11-mult git:(master) ✗ g++ -std=c++11  7-promise.cpp
+//➜  c11-mult git:(master) ✗ g++ -std=c++888福建省拉开距离的反馈啦豆腐joifGFLFKDGJFDJgkldgjlasdjflsdjflksdafjlksadjflkasdjfl11  7-promise.cpp
 //➜  c11-mult git:(master) ✗ ./a.out  
 //Inside Thread
 //35
