@@ -1,4 +1,4 @@
-#include "boost\variant.hpp"
+#include "boost/variant.hpp"
 #include <vector>
 #include <iostream>
 #include <array>
@@ -8,10 +8,12 @@ using namespace std;
 
 class DoubleVisitor : public boost::static_visitor<> {
 public:
-   void operator() (int& i) const {  
+   void operator() (int& i) const 
+   {  
        i += i;
    }
-   void operator() (string& str) const { 
+   void operator() (string& str) const 
+   { 
        str += str;
    }
 };
@@ -66,7 +68,8 @@ int main()
    arr.push_back("good");
    arr.push_back(25);
    arr.push_back("bad");
-   for (auto x : arr) {
+   for (auto x : arr) 
+   {
        boost::apply_visitor( DoubleVisitor(), x);
    }
 }

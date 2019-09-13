@@ -4,10 +4,14 @@
 // 匿名初始化构造  聚合初始化 给 逐个赋值简化    减少了出错的机会
 #include <initializer_list> 
 
-class BoVector {
+
+// 构造使用初始化列表 简单方便
+class BoVector 
+{
    std::vector<int> m_vec;
    public:
-   BoVector(const std::initializer_list<int>& v) {
+   BoVector(const std::initializer_list<int>& v) 
+   {
       for (std::initializer_list<int>::iterator itr = v.begin(); itr!=v.end(); ++ itr)
          m_vec.push_back(*itr);
    }
@@ -24,7 +28,8 @@ class Rectangle {
 
 void draw_rect(Rectangle r){};
 
-int main() {
+int main() 
+{
     // 匿名函数构造调用
    draw_rect({5, 6, 9});  // Rectangle{5,6,9} is automatically called
 }

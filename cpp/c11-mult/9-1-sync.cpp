@@ -71,4 +71,5 @@ int main()
 	//Printing the combined Data
 	std::cout << "Data = " << data << std::endl;
  
-	return 0;}
+	return 0;
+	}

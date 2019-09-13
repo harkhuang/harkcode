@@ -2,6 +2,8 @@
 
 void test0(){
     int x = 42;
+
+    // 获取x的类型 然后调用模版 进行构造
     std::vector<decltype(x)> v(100, x); // v is a vector<int>
 
     v.push_back(123);
