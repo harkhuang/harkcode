@@ -7,7 +7,8 @@
 // 匿名初始化构造  
 #include <initializer_list> 
 // C++ 03
-class Dog {     // Aggregate class or struct
+class Dog
+ {     // Aggregate class or struct
    public:
       int age;
      std::string name;

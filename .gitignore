@@ -7,6 +7,7 @@ build
 ipch
 *.exe
 cpp/boost-asio/build
- 
+cpp/boost-asio/.idea
+cpp/boost-asio/cmake-build-debug
 *.proto
  

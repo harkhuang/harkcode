@@ -24,5 +24,5 @@ int main()
 		std::cout << "gp1.use_count() = " << gp1.use_count() << std::endl;
 		std::cout << "gp2.use_count() = " << gp2.use_count() << std::endl;
 	}
-	system("pause");
+	//system("pause");
 } 
