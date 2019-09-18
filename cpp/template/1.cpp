@@ -3,6 +3,8 @@
 **** */
 
 
+// 将特殊的模版类  构造成其他类型
+
 #include <iostream>
 
 template <class T>
