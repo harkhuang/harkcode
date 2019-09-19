@@ -116,6 +116,8 @@ namespace std
             std::future<RetType> future = task->get_future();
             {    // 添加任务到队列
                 std::lock_guard<std::mutex> lock{ m_lock };//对当前块的语句加锁  lock_guard 是 mutex 的 stack 封装类，构造的时候 lock()，析构的时候 unlock()
+               
+                // 
                 m_tasks_queue.emplace(
                     [task]()
                 { // push(Task{...})
