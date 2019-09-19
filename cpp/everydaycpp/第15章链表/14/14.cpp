@@ -20,6 +20,7 @@ bool check(string str)
 }
 book*creat()
 {
+	// ’ªø’º‰¥Ê∑≈ ÷∏’Î
 	book*p1,*p2;
 	p1=new book;
 	head=p1;
