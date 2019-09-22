@@ -21,6 +21,9 @@ public:
 void Double( boost::variant<int, string> u) {
 }
 
+
+
+
 int main()
 {
 //   C union:
