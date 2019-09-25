@@ -13,6 +13,8 @@ private:
     int bar;
 };
  
+
+ 
 int main()
 {
     std::shared_ptr<Foo> sptr = std::make_shared<Foo>(1);
