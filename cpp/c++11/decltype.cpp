@@ -39,19 +39,11 @@ int ytest()
     std::cout << "i = " << i << ", "
         << "j = " << j << '\n';
 }
-
-
 struct A { double x; };
 const A* a;
-
 decltype(a->x) y;       // type of y is double (declared type)
-
-
 /// 迷惑  为什么 是引用类型
 decltype((a->x)) z = y; // type of z is const double& (lvalue expression)
-
-
-
 // 在模版中使用类型判断 是这个函数使用的精髓
 template<typename T, typename U>
 auto add(T t, U u) -> decltype(t + u) // return type depends on template parameters
