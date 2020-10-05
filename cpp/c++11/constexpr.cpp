@@ -1,6 +1,24 @@
 #include <iostream>
 #include <stdexcept>
  
+///类型别名
+using TYPE_OF_MINE = long long;
+
+TYPE_OF_MINE int64_temp;
+
+template <typename T,typename U >
+class demo final {}
+
+template<typename T>
+using demo_type = demo<TYPE_OF_MINE, long>
+
+
+demo_type a; // easy way to declare
+
+
+// 编译器常量
+
+
 // C++11 constexpr functions use recursion rather than iteration
 // (C++14 constexpr functions may use local variables and loops)
 
