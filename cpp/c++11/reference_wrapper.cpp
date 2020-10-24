@@ -27,6 +27,8 @@ int main()
     }
  
     // 通过引用方式访问  并且对其值进行修改.
+    // 引用方式访问 并且修改
+    // 使得一个对象具有两种数据结构操作方式 🐂🍺
     std::cout << "\n\nDoubling the values in the initial list...\n\n";
     for (int& i : l) {
         i *= 2;
