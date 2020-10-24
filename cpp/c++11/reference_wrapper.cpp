@@ -20,6 +20,10 @@ int main()
     for (int n : l){ 
         std::cout << n << ' ';
     }
+
+
+
+    
  
     std::cout << "\nContents of the list, as seen through a shuffled vector: ";
     for (int i : v){
@@ -38,6 +42,6 @@ int main()
     for (int i : v){
        std::cout << i << ' ';
 
-       
+
     }
 }
