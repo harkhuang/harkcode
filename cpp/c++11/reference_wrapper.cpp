@@ -37,5 +37,7 @@ int main()
     std::cout << "Contents of the list, as seen through a shuffled vector: ";
     for (int i : v){
        std::cout << i << ' ';
+
+       
     }
 }
