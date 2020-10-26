@@ -2,6 +2,8 @@
 // file: 1functor.cpp 
 #include <iostream> 
 using namespace std;
+
+
 // 由于将 operator() 多载化了，因此 plus 成了㆒个仿函式
 template <class T>
 struct plus1 {
