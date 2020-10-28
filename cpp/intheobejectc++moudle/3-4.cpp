@@ -49,9 +49,12 @@ public:
 	//int GetValue() { return m_a; }
 };
 
+
+typedef void (*func)() FUNC;
 int main()
 {
-
+	FUNC func1= [](){ std::cout << "hello" <<std::endl;}
+	func1();
 
 	std::cout << sizeof(CEmpty1) << std::endl;
 	std::cout << sizeof(CEmpty2) << std::endl;
