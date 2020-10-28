@@ -23,7 +23,10 @@ int main()
 
 	function f = &Base::i;
 
-	// 	f();   ///error
+
+
+
+ 	f();   ///error
 	Base b;
 	(b.*f)  ();  // ok
 	(b.*xxpsapd)();
