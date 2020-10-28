@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "CodeLens (Launch) - yinyongchuandi",
+            "request": "launch",
+            "mainClass": "yinyongchuandi",
+            "projectName": "harkcode_f8600e3e"
+        },
+        {
             "name": "Python: Terminal (external)",
             "type": "python",
             "request": "launch",
@@ -28,8 +35,6 @@
             "request": "attach",
             "processId": "${command:pickProcess}"
         },
-
-        
         {
             "name": "Launch file",
             "type": "go",
