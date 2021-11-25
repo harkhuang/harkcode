@@ -1,9 +1,6 @@
 #include <iostream>
 #include <string>
-
-
 // 方法1
-
 // 递归展开的最后一个
 // void print() {}是为了终止递归。
 void print() {}
@@ -22,13 +19,7 @@ void print(T firstArg, Types... args) {
   std::cout << firstArg << '\n'; // print first argument
   print(args...);                // call print() for remaining arguments
 }
-
-
-
-
-
 using namespace std; 
-
 // 方法2
 template <typename T>
 void printOne(T a)
