@@ -4,8 +4,8 @@ import smtplib
 from email.mime.text import MIMEText
 mailto_list=['xxxx@xxx.com']           #收件人(列表)
 mail_host="smtp.qq.com"            #使用的邮箱的smtp服务器地址
-mail_user="shiyanhk@qq.com"                           #用户名
-mail_pass="chunqingdashazi"                             #密码
+mail_user="111@qq.com"                           #用户名
+mail_pass="12321321321"                             #密码
 mail_postfix="postfix"                     #邮箱的后缀
 def send_mail(to_list,sub,content):
     me="hello"+"<"+mail_user+"@"+mail_postfix+">"
@@ -31,5 +31,5 @@ for i in range(5):                             #发送五封，不过会被拦�
 
 
 if __name__ == "__main__":
-    send_mail('huangkui@szkingdom.com','test from shiyanhk','dsfsdfdsafssadfasfsad') 
+    send_mail('huangkui@111.com','test from 111','dsfsdfdsafssadfasfsad') 
     accpet_mail()

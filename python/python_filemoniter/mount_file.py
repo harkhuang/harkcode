@@ -1,3 +1,4 @@
+
 #!/usr/bin/python  
 #coding=gbk  
 import os
@@ -29,8 +30,6 @@ def kill_proc(name):#ok
 
 
 def  do_mount():  #ok   
-    os.system("umount /hqdatabus/kmds/szkingdom/ggqq")      
-    os.system("mount -t cifs -o iocharset=cp936,codepage=cp936,username="jzjy",password="citicsjzjy" //10.23.117.11/港股etf/ggqq /hqdatabus/kmds/szkingdom/ggqq")
 
 def do_log(log):
         with open('./log.txt', 'a') as file:
@@ -43,11 +42,11 @@ def do_log(log):
 def callback_routine(interval,name_proce):
   while 1:
     time.sleep(interval)
-    if( False == os.path.exists("/hqdatabus/kmds/szkingdom/ggqq/hq") ):
+    if( False == os.path.exists("/xx/xxx/xxx/ggqq/hq") ):
       do_log("dir lose mount")      
       kill_proc(name_proce)
       do_mount()
-      os.system("/hqdatabus/kmds/szkingdom/kdhqtrans1_1/kdhqtrans1  start")
+      os.system("/hqdatabus/xxx/xxx/kdhqtrans1_1/kdhqtrans1  start")
     else:
       do_log("mount file statu is ok...")
 

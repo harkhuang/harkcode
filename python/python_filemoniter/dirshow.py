@@ -24,7 +24,7 @@ def is_dir_existence(name):
 
 def dir_work():
     flag = 1
-    if (is_dir_existence("/mnt/kingdom/") & is_dir_existence("/mnt/github/") & is_dir_existence("/mnt/github/trunk/")):
+    if (is_dir_existence("/mnt/111/") & is_dir_existence("/mnt/github/") & is_dir_existence("/mnt/github/trunk/")):
         print "cant do mount  "
         return True
     else :
