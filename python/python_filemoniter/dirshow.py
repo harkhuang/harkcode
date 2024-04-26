@@ -78,9 +78,7 @@ def  do_mount():  #ok
     #cmd_umount = "umount " + dest
     #ret = os.system(cmd_umount)
 
-    #if( False == os.path.exists("mnt/test/1") ):
-    #os.system("umount /hqdatabus/kmds/szkingdom/ggqq")   
-    #os.system('''mount -t cifs -o iocharset=cp936,codepage=cp936,username="jzjy",password="citicsjzjy" //10.23.117.11/港股etf/ggqq /hqdatabus/kmds/szkingdom/ggqq''')
+
     os.system("umount /mnt/test")     
     os.system('''mount -t  vboxsf test /mnt/test''')
   
@@ -118,7 +116,6 @@ def callback_routine(interval,name_proce):
 
 
 if __name__ == "__main__":
-  unicodeData = '''mount -t cifs -o iocharset=cp936,codepage=cp936,username="jzjy",password="citicsjzjy" //10.23.117.11/港股etf/ggqq /hqdatabus/kmds/szkingdom/ggqq'''
   gbkData = unicodeData.encode("GBK")
   gVal['newPostPatStr'] = unicode(gVal['newPostPatStr'], "utf-8");
   print gbkData
