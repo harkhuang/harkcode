@@ -28,7 +28,7 @@ def kill_proc(name):#ok
 
 
 def  do_mount():  #ok   
-    os.system("umount /hqdatabus/kmds/szkingdom/ggqq")   
+    os.system("umount /hqdatabus/aaa/xxxx/ggqq")   
    
     os.system("")
 
@@ -44,7 +44,7 @@ def callback_routine(interval,name_proce):
 
   while 1:
     time.sleep(interval)
-    if( False == os.path.exists("/hqdatabus/kmds/szkingdom/ggqq/hq") ):
+    if( False == os.path.exists("xxx") ):
       do_log("dir lose mount")      
       kill_proc(name_proce)
       do_mount()
